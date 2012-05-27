@@ -9,8 +9,6 @@ from models import *
 app = Flask(__name__)
 app.debug = True
 
-import sys
-print("The Python version is %s.%s.%s" % sys.version_info[:3])
 
 #mongolab connection
 connect('berlinbicycle', host=os.environ.get('MONGOLAB_URI'))
@@ -41,7 +39,7 @@ def dbtest():
 
 	
 	print "********************"
-	return jsonify({'titles':'abc'})
+	return jsonify({'titles':titles})
 
 
 
