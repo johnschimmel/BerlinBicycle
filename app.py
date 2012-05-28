@@ -5,10 +5,11 @@ from flask import Flask, session, request, url_for, escape, render_template, jso
 
 from mongoengine import *
 from models import *
+from forms import *
 
 app = Flask(__name__)
 app.debug = True
-
+app.secret_key = os.environ.get('SECRET_KEY')
 
 #mongolab connection
 connect('berlinbicycle', host=os.environ.get('MONGOLAB_URI'))
@@ -21,25 +22,39 @@ def index():
 	}
 	return render_template('main/index.html', **templateData) #Hello World!'
 
-@app.route('/dbtest')
+@app.route('/test')
 def dbtest():
-
-
-
-	titles = []
+	tForm = TestForm(csrf_enabled=True)
 	
+	templateData = {
+		'form' : tForm
+	}
+	print templateData['form'].csrf_token
+	return render_template('main/testform.html', **templateData)
 
-	data = {"title": "my test"}
-	newP = Post(**data)
-	newP.save()
+@app.route('/submit',  methods=['POST'])
+def form_submit_test():
+	tForm = TestForm(csrf_enabled=True)
+	
+	print request.form
 
-	#print(Post.objects.count())
+	if request.form and tForm.validate():
+		return jsonify(request.form)
+	else:
+		return "Sorry"
+
+
+@app.route('/dbtest')
+def dbQuery():
+
+	title = []
 	for post in Post.objects:
 		titles.append(post.title)
-
 	
 	print "********************"
 	return jsonify({'titles':titles})
+
+
 
 
 
