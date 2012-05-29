@@ -1,0 +1,49 @@
+{
+	survey: {
+		  name : 'Test Survey'
+		, slug : 'test-survey'
+		, questions : [{
+				  slug : 'what-is-the-most-dangerous-street'
+				, question : 'What is the most dangerous street in your town'
+				, help : 'On the map find the street and click to leave a marker'
+				, position : 1
+				, response_type : 'geopoint'
+				, answers : [{
+						action : 'next'
+					}]
+				},
+				{
+				  slug : 'what-neighborhood-do-you-live-in'
+				, question : 'What neighborhood do you live in?'
+				, help : 'Select your neighborhood from the list.'
+				, position : 2
+				, response_type : 'multiplechoice'
+				, answers : [
+					{
+					  value : 'Chelsea'
+					, action : { goto : 'next' }
+					},
+					{
+					  value : 'Midtown'
+					, action : { goto :'end' }
+					},
+					{
+					  value : 'Lower East Side'
+					, action : { goto :'end' }
+					}
+					]
+				},
+				{
+				  slug : 'what-is-your-favorite-icecream'
+				, question : 'What is your favorite icecream?'
+				, help : 'Pick one'
+				, position : 1
+				, response_type : 'textbox'
+				, answers : [{
+						action : 'next'
+					}]
+				}
+			
+			]
+	}
+}
