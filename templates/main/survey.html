@@ -1,0 +1,21 @@
+{% extends "/layout.html" %}
+
+{% block styles %}{% endblock %}
+
+{% block body %}
+<h1>{{title}}</h1>
+<div id="map_canvas" style="width:400px;height:400px;"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+<script src="{{ url_for('static', filename='js/survey.js') }}"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		//initialize();
+	})
+
+</script>
+
+
+{% endblock %}

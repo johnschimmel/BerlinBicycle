@@ -22,6 +22,15 @@ def index():
 	}
 	return render_template('main/index.html', **templateData) #Hello World!'
 
+@app.route('/survey')
+def survey():
+	templateData = {
+		'title' : 'Test Survey'
+	}
+
+	return render_template('/main/survey.html', **templateData);
+	
+
 @app.route('/test')
 def dbtest():
 	tForm = TestForm(csrf_enabled=True)

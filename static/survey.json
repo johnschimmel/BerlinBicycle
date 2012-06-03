@@ -1,10 +1,12 @@
 {
-	"survey": {
+	
+	  "status" : "OK"
+	, "survey": {
 		  "name" : "Test Survey"
-		, "slug" : "test_survey"
+		, "id" : "test_survey"
 		, "questions" : [
 				{
-				  "slug" : "choose_a_road"
+				  "id" : "choose_a_road"
 				, "question" : {
 						  "en" : "Choose a road or street where you ride your bicycle"
 						, "de" : ""
@@ -22,7 +24,7 @@
 
 
 				{
-				  "slug" : "is_the_gradient__amenable_to_cycling"
+				  "id" : "is_the_gradient__amenable_to_cycling"
 				, "question" : {
 						  "en" : "Is the gradient/topography/slope amenable to cycling?"
 						, "de" : ""
@@ -47,7 +49,7 @@
 					]
 				},
 				{
-				  "slug" : "link_to_destinations"
+				  "id" : "link_to_destinations"
 				, "question" : {
 						"en" : "Does this street provide a direct link/route to destinations/ services maximum number of trip attractors/destinations?"
 					  , "de" : ""
@@ -73,7 +75,7 @@
 				},
 
 				{
-				  "slug" : "street_offers_direct_link_to_destinations"
+				  "id" : "street_offers_direct_link_to_destinations"
 				, "question" : {
 						  "en" : "Does this street provide priority through intersections?"
 						, "de" : ""
@@ -106,7 +108,7 @@
 				},
 
 				{
-				  "slug" : "how_do_you_feel"
+				  "id" : "how_do_you_feel"
 				, "question" : {
 						  "en" : "When you cycle on this street do you feel…?"
 						, "de" : ""

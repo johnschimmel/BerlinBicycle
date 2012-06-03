@@ -29,7 +29,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="#">Dynamic Connections</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -41,7 +41,7 @@
       </div>
     </div>
   </header>
-  <div role="main">
+  <div role="main"  class="container">
     {% block body %}{% endblock %}
   </div>
   <footer>
@@ -55,6 +55,8 @@
   <script src="{{ url_for('static', filename='js/libs/backbone-min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/plugins.js') }}"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBaRo2YQPaE38erga3ijdF3y_-O84semsw&sensor=false"></script>
   {% block scripts %}{% endblock %}
   <script>
     var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
