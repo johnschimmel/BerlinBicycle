@@ -1,48 +1,141 @@
 {
-	survey: {
-		  name : 'Test Survey'
-		, slug : 'test-survey'
-		, questions : [{
-				  slug : 'what-is-the-most-dangerous-street'
-				, question : 'What is the most dangerous street in your town'
-				, help : 'On the map find the street and click to leave a marker'
-				, position : 1
-				, response_type : 'geopoint'
-				, answers : [{
-						action : 'next'
+	"survey": {
+		  "name" : "Test Survey"
+		, "slug" : "test_survey"
+		, "questions" : [
+				{
+				  "slug" : "choose_a_road"
+				, "question" : {
+						  "en" : "Choose a road or street where you ride your bicycle"
+						, "de" : ""
+					}
+				, "description" : {
+						  "en" : ""
+						, "de" : ""
+				}
+				, "position" : 1
+				, "response_type" : "geopoint"
+				, "answers" : [{
+						"action" : { "goto" : "next" }
 					}]
 				},
+
+
 				{
-				  slug : 'what-neighborhood-do-you-live-in'
-				, question : 'What neighborhood do you live in?'
-				, help : 'Select your neighborhood from the list.'
-				, position : 2
-				, response_type : 'multiplechoice'
-				, answers : [
+				  "slug" : "is_the_gradient__amenable_to_cycling"
+				, "question" : {
+						  "en" : "Is the gradient/topography/slope amenable to cycling?"
+						, "de" : ""
+					}
+				, "description" : {
+						  "en" : ""
+						, "de" : ""
+				}
+				, "position" : 2
+				, "response_type" : "multiplechoice"
+				, "answers" : [
 					{
-					  value : 'Chelsea'
-					, action : { goto : 'next' }
+					  "value" : "yes"
+					, "action" : { "goto" : "next" }
+					, "text" : {"en" : "Yes", "de" : "Ja"}
 					},
 					{
-					  value : 'Midtown'
-					, action : { goto :'end' }
-					},
-					{
-					  value : 'Lower East Side'
-					, action : { goto :'end' }
+					  "value" : "no"
+					, "action" : { "goto" :"next" }
+					, "text" : {"en" : "No", "de" : "Nein"}
 					}
 					]
 				},
 				{
-				  slug : 'what-is-your-favorite-icecream'
-				, question : 'What is your favorite icecream?'
-				, help : 'Pick one'
-				, position : 1
-				, response_type : 'textbox'
-				, answers : [{
-						action : 'next'
+				  "slug" : "link_to_destinations"
+				, "question" : {
+						"en" : "Does this street provide a direct link/route to destinations/ services maximum number of trip attractors/destinations?"
+					  , "de" : ""
+					}	
+				, "description" : {
+						  "en" : ""
+						, "de" : ""
+				}
+				, "position" : 3
+				, "response_type" : "multiplechoice"
+				, "answers" : [
+					{
+					  "value" : "yes"
+					, "action" : { "goto" : "next" }
+					, "text" : {"en" : "Yes", "de" : "Ja"}
+					},
+					{
+					  "value" : "no"
+					, "action" : { "goto" :"next" }
+					, "text" : {"en" : "No", "de" : "Nein"}
+					}
+					]
+				},
+
+				{
+				  "slug" : "street_offers_direct_link_to_destinations"
+				, "question" : {
+						  "en" : "Does this street provide priority through intersections?"
+						, "de" : ""
+					}
+					
+				, "description" : {
+						  "en" : ""
+						,  "de" : ""
+						} 
+				
+				, "position" : "4"
+				, "response_type" : "multiplechoice"
+				, "answers" : [
+					{
+					  "value" : "yes"
+					, "action" : { "goto" : "next" }
+					, "text" : {"en" : "Yes", "de" : "Ja"}
+					},
+					{
+					  "value" : "some"
+					, "action" : { "goto" : "next" }
+					, "text" : {"en" : "Some", "de" : "Einige"}
+					},
+					{
+					  "value" : "no"
+					, "action" : { "goto" :"next" }
+					, "text" : {"en" : "No", "de" : "Nein"}
+					}
+					]
+				},
+
+				{
+				  "slug" : "how_do_you_feel"
+				, "question" : {
+						  "en" : "When you cycle on this street do you feel…?"
+						, "de" : ""
+					}
+					
+				, "description" : {
+						  "en" : ""
+						,  "de" : ""
+						} 
+				, "position" : 5
+				, "response_type" : "multiplechoice"
+				, "answers" : [
+					{
+					  "value" : "happy"
+					, "action" : { "goto" : "next" }
+					, "text" : {"en" : "Happy", "de" : "Fröhlich"}
+					},
+					{
+					  "value" : "neutral"
+					, "action" : { "goto" : "next" }
+					, "text" : {"en" : "Neutral", "de" : "Nutral"}
+					},
+					{
+					  "value" : "stressed"
+					, "action" : { "goto" :"next" }
+					, "text" : {"en" : "Stressed", "de" : "Betont"}
 					}]
 				}
+
 			
 			]
 	}
