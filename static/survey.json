@@ -1,5 +1,5 @@
 {
-	
+
 	  "status" : "OK"
 	, "survey": {
 		  "name" : "Test Survey"
@@ -75,7 +75,7 @@
 				},
 
 				{
-				  "id" : "street_offers_direct_link_to_destinations"
+				  "id" : "street_offers_priority_through_intersections"
 				, "question" : {
 						  "en" : "Does this street provide priority through intersections?"
 						, "de" : ""

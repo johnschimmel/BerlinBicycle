@@ -2,8 +2,7 @@ var surveyApi = function() {
 	
 	var survey_path = "/static/";
 	var current_survey = "";
-	var questionModel = new Backbone.Model();
-
+	
 	var obj = {
 
 		getCurrentSurvey : function() {
@@ -16,17 +15,24 @@ var surveyApi = function() {
 
 		, buildQuestions : function() {
 			current_survey['qCollection'] = new Backbone.Collection();
+
 			for(q in current_survey.questions) {
 				var question = current_survey.questions[q];
-				//console.log(q);
-				current_survey['qCollection'].add( new Backbone.Model(question) );
+
+				if (question.response_type == "multiplechoice") {
+					var tmpModel = new questionMultipleChoiceModel(question);
+				} else {
+					var tmpModel = new questionModel(question);	
+				}
+				tmpModel.display();
+				current_survey['qCollection'].add( tmpModel );
 			}
 			console.log(current_survey);
 		}
 
 		, load : function(surveyId) {
 			var that = this;
-			console.log(this);
+		
 			jQuery.ajax({
 				  url : survey_path + surveyId
 				, type : 'GET'
@@ -50,4 +56,28 @@ var surveyApi = function() {
 	}
 
 	return obj;
-}();
+};
+
+window.questionModel = Backbone.Model.extend({
+	initialize : function() {
+		
+	},
+
+	display : function() {
+		console.log('displaying question model');
+		console.log(this);
+	}
+});
+
+window.questionMultipleChoiceModel = questionModel.extend({
+	initialize : function() {
+
+
+	},
+
+	display : function() {
+		console.log("this is a multiplechoice question");
+		console.log(this);
+
+	}
+})

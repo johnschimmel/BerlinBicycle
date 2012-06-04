@@ -11,8 +11,11 @@
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 <script src="{{ url_for('static', filename='js/survey.js') }}"></script>
 <script type="text/javascript">
+	var survey;
 	jQuery(document).ready(function(){
 		//initialize();
+		survey = new surveyApi();
+		survey.load('survey.json');
 	})
 
 </script>
