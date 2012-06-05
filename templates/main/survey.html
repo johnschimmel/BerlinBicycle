@@ -3,11 +3,34 @@
 {% block styles %}{% endblock %}
 
 {% block body %}
-<h1>{{title}}</h1>
-<div id="map_canvas" style="width:400px;height:400px;"></div>
+	<h1>{{title}}</h1>
+	<div id="map_canvas" style="width:400px;height:400px;"></div>
+	<div id="question_container">
+		<div id="question_title"></div>
+		<div id="choices"></div>
+	</div>
+
+
+
+
 {% endblock %}
 
+
 {% block scripts %}
+<script src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
+
+{% raw %}
+<script type="text/template" id="question_title_template">
+<h3>{{question}}</h3>
+<p>{{description}}</p>
+</script>
+
+<script type="text/template" id="question_choice_template">
+<p>{{choice}}</p>
+</script>
+
+{% endraw %}
+
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 <script src="{{ url_for('static', filename='js/survey.js') }}"></script>
 <script type="text/javascript">

@@ -2,11 +2,39 @@ var surveyApi = function() {
 	
 	var survey_path = "/static/";
 	var current_survey = "";
-	
-	var obj = {
+	var questions = new collections.Questions();
+	var language = "en";
+	var currentPosition = 1;
 
-		getCurrentSurvey : function() {
+	var obj = {
+		
+		setLanguage : function(languageCode) {
+			language = languageCode;
+		}
+	
+		, getCurrentSurvey : function() {
 			return current_survey;
+		}
+		, getQuestions : function() {
+			return questions;
+
+		}
+
+		, getCurrentQuestion : function() {
+			var tmpQ = questions.models[currentPosition-1];
+			return tmpQ;
+		},
+
+		displayCurrentQuestion : function() {
+			question = this.getCurrentQuestion();
+
+			if (question) {
+
+				var q_title = new views.question_title({
+					el : jQuery("#question_title"), 
+					model: question
+				});
+			}
 		}
 
 		, buildSurvey : function(){
@@ -14,20 +42,27 @@ var surveyApi = function() {
 		}
 
 		, buildQuestions : function() {
-			current_survey['qCollection'] = new Backbone.Collection();
-
+			
 			for(q in current_survey.questions) {
 				var question = current_survey.questions[q];
 
-				if (question.response_type == "multiplechoice") {
-					var tmpModel = new questionMultipleChoiceModel(question);
-				} else {
-					var tmpModel = new questionModel(question);	
+				switch(question.response_type) {
+					case "multiplechoice":
+						var tmpModel = new models.MultipleChoiceQuestion(question);
+					case "geopoint":
+						var tmpModel = new models.GeoPoint(question);
+					default:
+						var tmpModel = new models.Question(question);
 				}
-				tmpModel.display();
-				current_survey['qCollection'].add( tmpModel );
+				
+				tmpModel.set('choices', new collections.Choices(question.answers));
+				tmpModel.set('language',language);
+				delete tmpModel.unset('answers');
+
+				questions.add( tmpModel );
+				
 			}
-			console.log(current_survey);
+			
 		}
 
 		, load : function(surveyId) {
@@ -41,9 +76,7 @@ var surveyApi = function() {
 					if (response["status"] == "OK") {
 						current_survey = response.survey;
 						that.buildSurvey();
-					}
-					
-
+					}					
 				}
 				, error : function(error) {
 					console.error(error);
@@ -58,26 +91,3 @@ var surveyApi = function() {
 	return obj;
 };
 
-window.questionModel = Backbone.Model.extend({
-	initialize : function() {
-		
-	},
-
-	display : function() {
-		console.log('displaying question model');
-		console.log(this);
-	}
-});
-
-window.questionMultipleChoiceModel = questionModel.extend({
-	initialize : function() {
-
-
-	},
-
-	display : function() {
-		console.log("this is a multiplechoice question");
-		console.log(this);
-
-	}
-})
