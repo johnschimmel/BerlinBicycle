@@ -19,7 +19,11 @@ var surveyApi = function() {
 			return questions;
 
 		}
-
+		, nextQuestion : function() {
+			if (currentPosition < questions.length-1){
+				currentPosition++;
+			}
+		}
 		, getCurrentQuestion : function() {
 			var tmpQ = questions.models[currentPosition-1];
 			return tmpQ;
@@ -33,6 +37,11 @@ var surveyApi = function() {
 				var q_title = new views.question_title({
 					el : jQuery("#question_title"), 
 					model: question
+				});
+
+				choices = question.get('choices');
+				_.each(choices.models, function(choice){
+					console.log(choice);
 				});
 			}
 		}

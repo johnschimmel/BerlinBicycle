@@ -18,7 +18,8 @@
 				, "position" : 1
 				, "response_type" : "geopoint"
 				, "answers" : [{
-						"action" : { "goto" : "next" }
+						  "text" : {"en":"Select a point/street on the map","de":"german - select a point on the map."}
+						, "action" : { "goto" : "next" }
 					}]
 				},
 
