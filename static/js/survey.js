@@ -20,13 +20,16 @@ var surveyApi = function() {
 
 		}
 		, nextQuestion : function() {
-			if (currentPosition < questions.length-1){
+			if (currentPosition < questions.length){
 				currentPosition++;
+				return this.displayCurrentQuestion();
+
+			} else {
+				return false;
 			}
 		}
 		, getCurrentQuestion : function() {
-			var tmpQ = questions.models[currentPosition-1];
-			return tmpQ;
+			return questions.models[currentPosition-1];
 		},
 
 		displayCurrentQuestion : function() {
@@ -72,6 +75,7 @@ var surveyApi = function() {
 				
 			}
 			
+			this.displayCurrentQuestion();
 		}
 
 		, load : function(surveyId) {

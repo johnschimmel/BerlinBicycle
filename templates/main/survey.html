@@ -3,14 +3,26 @@
 {% block styles %}{% endblock %}
 
 {% block body %}
-	<h1>{{title}}</h1>
-	<div id="map_canvas" style="width:400px;height:400px;"></div>
-	<div id="question_container">
-		<div id="question_title"></div>
-		<div id="choices"></div>
+	<br><br><br><br>
+	<div class="row">
+
+		<div id="left" class="column span6">
+
+			<div id="question_container">
+				<div id="question_title"></div>
+				<div id="choices"></div>
+			</div>
+		</div>
+	
+		<div class="span6 column">
+			<div id="map_canvas" style="width:550px;height:350px;"></div>
+			<div id="map_search">
+				<input type="search" name="map_search" id="map_search">
+				<button id="map_search_btn" class="btn btn-primary">Find on map</button>
+			</div>
+		</div>
+	
 	</div>
-
-
 
 
 {% endblock %}
@@ -29,14 +41,16 @@
 <p>{{choice}}</p>
 </script>
 
+
 {% endraw %}
 
 <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 <script src="{{ url_for('static', filename='js/survey.js') }}"></script>
 <script type="text/javascript">
 	var survey;
+	var map;
 	jQuery(document).ready(function(){
-		//initialize();
+		initialize();
 		survey = new surveyApi();
 		survey.load('survey.json');
 	})

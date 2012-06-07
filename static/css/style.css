@@ -104,3 +104,6 @@ td { vertical-align: top; }
 
 
 #map_canvas { height: 100% }
+#mapCanvas img {
+  max-width: none;
+}
