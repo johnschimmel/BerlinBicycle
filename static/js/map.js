@@ -5,6 +5,9 @@ var directionsDisplay = new google.maps.DirectionsRenderer({
 
 var polyline = new google.maps.Polyline();
 
+var markers = new collections.Markers;
+
+
 function initialize() {
 	var myOptions = {
 	  center: new google.maps.LatLng(40.74667,-73.9879),
@@ -18,10 +21,29 @@ function initialize() {
       computeTotalDistance(directionsDisplay.directions);
     });
 
+    google.maps.event.addListener(map, "click", function(e){
+    	var tmpMarker = new models.mapmarker({
+    		marker : new google.maps.Marker({
+	    		  map : map
+	    		, position : e.latLng
+	    	})
+	    	, latLng : e.latLng
+	    });
+    	markers.add(tmpMarker);
+    	
+    });
+
     calcRoute();
 
     polyline.setMap(map);
 }
+
+var drawRoute = function() {
+	var tmpPath = _.map(markers.models, function(marker) {
+		return marker.get('latLng');
+	});
+	polyline.setPath(tmpPath);
+};
 
 var calcRoute = function() {
 
@@ -37,28 +59,7 @@ var calcRoute = function() {
 
 	  	polyline.setPath(response.routes[0].overview_path);
 	  	polyline.setVisible(true);
-	    //directionsDisplay.setDirections(response);
-	    /*
-	    var legs = response.routes[0].legs;
 
-	    for (var leg = 0; leg<legs.length; leg++){
-	    	var steps = response.routes[0].legs[0].steps;
-	       
-	        for(var step = 0; step < steps.length; step++)
-	        {
-	            polylineOptions = {
-	                    map: map,
-	                    strokeColor: "#FF0000",
-	                    strokeOpacity: 0.7,
-	                    strokeWeight: 2,
-	                    path: steps[step].path
-	            }
-	        police = new google.maps.Polyline(polylineOptions);
-	        }
-	    }
-	    */
-        
-        //police.getPath().push(ble);
 	  }
 	});
 }

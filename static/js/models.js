@@ -52,3 +52,5 @@ models.GeoPoint = models.Question.extend({
 
 	}
 });
+
+models.mapmarker = Backbone.Model.extend({});
