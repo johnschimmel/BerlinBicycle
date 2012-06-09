@@ -40,7 +40,7 @@ models.MultipleChoiceQuestion = models.Question.extend({
 	}
 });
 
-models.GeoPoint = models.Question.extend({
+models.GeoMultipleLineString = models.Question.extend({
 	initialize : function() {
 
 
@@ -53,4 +53,13 @@ models.GeoPoint = models.Question.extend({
 	}
 });
 
-models.mapmarker = Backbone.Model.extend({});
+
+models.Answer = Backbone.Model.extend({});
+
+models.mapmarker = Backbone.Model.extend({
+	hide : function() {
+		this.attributes.marker.setVisible(false);
+		
+	}
+
+});

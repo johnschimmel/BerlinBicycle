@@ -1,0 +1,15 @@
+{
+  "type":"MultiLineString",
+  "coordinates":[
+    [[-74.0131,40.7165],[-74.0131,42.7165]],
+    [[-74.0131,42.7165],[-64.0131,42.7165]]
+  ]
+}
+
+
+
+
+INSERT INTO test_line (the_geom) values (ST_GeomFromText('MULTILINESTRING((-74.0131 40.7165,-74.0131 42.7165,-64.0131 42.7165))',4326))
+
+
+SELECT ST_AsGeoJSON(the_geom) from test_line

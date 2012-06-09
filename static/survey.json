@@ -12,14 +12,16 @@
 						, "de" : ""
 					}
 				, "description" : {
-						  "en" : "This is a test description"
+						  "en" : "Using the map click to select the start and end of a street you ride."
 						, "de" : ""
 				}
 				, "position" : 1
-				, "response_type" : "geopoint"
+				, "response_type" : "GeoMultipleLineString"
+				, "minMarkers" : 2
 				, "answers" : [{
 						  "text" : {"en":"Select a point/street on the map","de":"german - select a point on the map."}
 						, "action" : { "goto" : "next" }
+
 					}]
 				},
 

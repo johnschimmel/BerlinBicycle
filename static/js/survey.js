@@ -5,6 +5,7 @@ var surveyApi = function() {
 	var questions = new collections.Questions();
 	var language = "en";
 	var currentPosition = 1;
+	var localViews = {};
 
 	var obj = {
 		
@@ -31,21 +32,26 @@ var surveyApi = function() {
 		, getCurrentQuestion : function() {
 			return questions.models[currentPosition-1];
 		},
+		getLocalViews : function() {
+			return localViews;
+		},
 
 		displayCurrentQuestion : function() {
 			question = this.getCurrentQuestion();
 
 			if (question) {
 
-				var q_title = new views.question_title({
-					el : jQuery("#question_title"), 
+				localViews.q_title = new views.question_title({
+					el : '#question_title', 
 					model: question
 				});
 
-				choices = question.get('choices');
-				_.each(choices.models, function(choice){
-					console.log(choice);
+				localViews.continue_button = new views.button_basic({
+					  el:'#continueButton'
+					, model : question
 				});
+
+				choices = question.get('choices');
 			}
 		}
 
@@ -61,8 +67,12 @@ var surveyApi = function() {
 				switch(question.response_type) {
 					case "multiplechoice":
 						var tmpModel = new models.MultipleChoiceQuestion(question);
-					case "geopoint":
-						var tmpModel = new models.GeoPoint(question);
+					case "GeoMultipleLineString":
+						var tmpModel = new models.GeoMultipleLineString(question);
+						tmpModel.set({map:map});
+						tmpModel.on('markerAdded', function(markers){
+							console.log("marker added : " + markers);
+						})
 					default:
 						var tmpModel = new models.Question(question);
 				}
@@ -72,6 +82,7 @@ var surveyApi = function() {
 				delete tmpModel.unset('answers');
 
 				questions.add( tmpModel );
+				
 				
 			}
 			
@@ -97,6 +108,29 @@ var surveyApi = function() {
 				}
 			})
 
+		}
+
+		, set : function(data) {
+			var that = this;
+			//get GEO question
+			geoQuestions = questions.where({response_type:"GeoMultipleLineString"});
+			_.each(geoQuestions, function(geoQ) {
+				
+				if (_.isUndefined(data.markers) == false && data.markers.length >= geoQ.get('minMarkers')) {
+
+					localViews.continue_button.$el.addClass('btn-success');
+					localViews.continue_button.$el.removeClass('disabled');
+
+					localViews.geoselection = new views.geoselection({
+						  el : '#choices'
+						, selection : data.directions.summary
+					});
+				}
+				geoQ.set('directions', data.directions);
+				console.log("new set")
+				console.log(geoQ.toJSON());
+			})
+			
 		}
 
 	}

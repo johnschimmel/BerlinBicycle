@@ -11,15 +11,15 @@
 			<div id="question_container">
 				<div id="question_title"></div>
 				<div id="choices"></div>
+				<div id="buttonContainer">
+					<button class="btn disabled" id="continueButton">Continue</button>
+				</div>
 			</div>
 		</div>
 	
 		<div class="span6 column">
 			<div id="map_canvas" style="width:550px;height:350px;"></div>
-			<div id="map_search">
-				<input type="search" name="map_search" id="map_search">
-				<button id="map_search_btn" class="btn btn-primary">Find on map</button>
-			</div>
+			
 		</div>
 	
 	</div>
@@ -41,6 +41,13 @@
 <p>{{choice}}</p>
 </script>
 
+<script type="text/template" id="geoselection_container_template">
+<div><p>{{selection}}</p></div>
+</script>
+
+<script type="text/template" id="answer_container_template">
+<p>Answer container</p>
+</script>
 
 {% endraw %}
 

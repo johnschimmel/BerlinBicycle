@@ -4,3 +4,4 @@ Mongoengine==0.6.10
 Flask-WTF==0.6
 Flask-Login==0.1.2
 Flask-Babel==0.8
+cartodb==0.5
