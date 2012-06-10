@@ -59,8 +59,9 @@ models.MultipleChoiceQuestion = models.Question.extend({
 	}
 
 	, setAnswer : function(answerObj) {
-		this.set('answer',answerObj);
-		return this.get('answer');
+		console.log("inside setAnswer for multiplechoice");
+		//this.set('answer',answerObj);
+		//return this.get('answer');
 
 	}
 

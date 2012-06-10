@@ -21,8 +21,14 @@ var surveyApi = function() {
 
 		}
 		, nextQuestion : function() {
+			console.log("inside nextQuestion");
 			if (currentPosition < questions.length){
+				console.log("current position: " + currentPosition)
+				
 				currentPosition++;
+				console.log("new position: " + currentPosition);
+				localViews.survey_status.update();
+
 				return this.displayCurrentQuestion();
 
 			} else {
@@ -31,22 +37,26 @@ var surveyApi = function() {
 		}
 		, saveAnswerAndContinue : function() {
 			var question = this.getCurrentQuestion();
-			console.log("about to setAnswer");
 			question.setAnswer();
-			//this.nextQuestion();
+			this.nextQuestion();
 		}
 		, getCurrentQuestion : function() {
-			return questions.models[currentPosition-1];
+			
+			tmpNext = questions.where({position:currentPosition});
+			if (tmpNext.length == 1) {
+				return _.first(tmpNext);
+			} else {
+				return False
+			}
+			
 		}
+
 		, getLocalViews : function() {
 			return localViews;
 		}
 
 		, displayCurrentQuestion : function() {
 			var question = this.getCurrentQuestion();
-			console.log('current questions');
-			console.log(question.response_type);
-
 			if (question) {
 
 				localViews.q_title = new views.question_title({
@@ -54,8 +64,8 @@ var surveyApi = function() {
 					model: question
 				});
 
-				localViews.continue_button = new views.button_basic({
-					  el:'#continueButton'
+				localViews.button_controls = new views.button_basic({
+					  el:'#buttonContainer'
 					, model : question
 				});
 
@@ -64,13 +74,22 @@ var surveyApi = function() {
 				choices = question.get('choices');
 				for(n in choices.models) {
 					var tmpChoice = choices.models[n];
-					console.log(tmpChoice);
+					//console.log(tmpChoice);
 				}
+
+				
 			}
 		}
 
 		, buildSurvey : function(){
+
 			this.buildQuestions();
+
+			localViews.survey_status = new views.survey_status({
+				  el : "#survey_status"
+				, survey : this
+			});
+			
 		}
 
 		, buildQuestions : function() {
@@ -133,9 +152,9 @@ var surveyApi = function() {
 			_.each(geoQuestions, function(geoQ) {
 				
 				if (_.isUndefined(data.markers) == false && data.markers.length >= geoQ.get('minMarkers')) {
-
-					localViews.continue_button.$el.addClass('btn-success');
-					localViews.continue_button.$el.removeClass('disabled');
+					
+					jQuery(localViews.button_controls.$el).find('button#continueButton').addClass('btn-success').removeClass('disabled');
+					
 
 					localViews.geoselection = new views.geoselection({
 						  el : '#choices'

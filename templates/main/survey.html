@@ -7,13 +7,14 @@
 	<div class="row">
 
 		<div id="left" class="column span6">
+			
+			<div id="survey_status"></div>
 
 			<div id="question_container">
 				<div id="question_title"></div>
 				<div id="choices"></div>
 				<div id="buttonContainer">
-					<button class="btn disabled" id="backButton">Back</button>
-					<button class="btn disabled" id="continueButton">Continue</button>
+					
 				</div>
 			</div>
 		</div>
@@ -35,6 +36,14 @@
 <script src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
 
 {% raw %}
+
+
+<script type="text/template" id="survey_status_template">
+<h1>{{title}}</h1>
+<h4>Question {{currentPosition}} of {{ totalNumQuestions }}</h4>
+</script>
+
+
 <script type="text/template" id="question_title_template">
 <h3>{{question}}</h3>
 <p>{{description}}</p>
@@ -48,9 +57,16 @@
 <div><p>{{selection}}</p></div>
 </script>
 
+<script type="text/template" id="button_controls_template">
+	<button class="btn hide disabled" id="backButton">Back</button>
+	<button class="btn disabled" id="continueButton">Continue</button>
+</script>
 
 <script type="text/template" id="answer_container_template">
-<div class="answer" id="{{id}}"><p>Answer container</p></div>
+<div class="answer" id="{{id}}">
+	<span class="answer_question_label">{{questionLabel}}</span><br>
+	<span class="answer_user_response">{{answer.summary}}</span>
+</div>
 </script>
 
 {% endraw %}

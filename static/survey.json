@@ -27,7 +27,7 @@
 
 
 				{
-				  "id" : "is_the_gradient__amenable_to_cycling"
+				  "id" : "is_the_gradient_amenable_to_cycling"
 				, "question" : {
 						  "en" : "Is the gradient/topography/slope amenable to cycling?"
 						, "de" : ""
@@ -89,7 +89,7 @@
 						,  "de" : ""
 						} 
 				
-				, "position" : "4"
+				, "position" : 4
 				, "response_type" : "multiplechoice"
 				, "answers" : [
 					{
