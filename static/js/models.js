@@ -36,22 +36,7 @@ models.MultipleChoiceQuestion = models.Question.extend({
 		this.set('language','en');
 	}
 	
-	, setLanguage : function(languageCode) {
-		this.set('language')
-	}
-	
-	, getLocalized : function(attrName, languageCode) {
-		var getLanguage;
 
-		if (_.isUndefined(languageCode)){
-			getLanguage = this.get('language');
-		} else {
-			getLanguage = languageCode;
-		}
-		
-		var tmpAttr = this.get(attrName);
-		return tmpAttr[getLanguage];
-	}
 	, display : function() {
 		console.log("this is a multiplechoice question");
 		console.log(this);

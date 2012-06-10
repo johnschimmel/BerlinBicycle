@@ -138,7 +138,8 @@ var views = (function(){
 
 			}
 			,continue : function(event) {
-				
+
+				console.log('this was clicked ' + this.id);
 				survey.saveAnswerAndContinue();
 
 			}

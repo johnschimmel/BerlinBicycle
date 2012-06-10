@@ -28,7 +28,7 @@ var surveyApi = function() {
 				currentPosition++;
 				console.log("new position: " + currentPosition);
 				localViews.survey_status.update();
-
+				localViews.button_controls.$el.html('');
 				return this.displayCurrentQuestion();
 
 			} else {
@@ -38,6 +38,7 @@ var surveyApi = function() {
 		, saveAnswerAndContinue : function() {
 			var question = this.getCurrentQuestion();
 			question.setAnswer();
+			localViews.button_controls.undelegateEvents();
 			this.nextQuestion();
 		}
 		, getCurrentQuestion : function() {
@@ -64,8 +65,10 @@ var surveyApi = function() {
 					model: question
 				});
 
+
 				localViews.button_controls = new views.button_basic({
 					  el:'#buttonContainer'
+					, id: question.get('id')
 					, model : question
 				});
 
@@ -153,7 +156,7 @@ var surveyApi = function() {
 				
 				if (_.isUndefined(data.markers) == false && data.markers.length >= geoQ.get('minMarkers')) {
 					
-					jQuery(localViews.button_controls.$el).find('button#continueButton').addClass('btn-success').removeClass('disabled');
+					jQuery(localViews.button_controls.$el).find('button.continueButton').addClass('btn-success').removeAttr('disabled');
 					
 
 					localViews.geoselection = new views.geoselection({
