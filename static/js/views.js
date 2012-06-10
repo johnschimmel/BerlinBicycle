@@ -44,7 +44,6 @@ var views = (function(){
 
 		geoselection : Backbone.View.extend({
 			initialize : function() {
-				console.log(this);
 				this.render();
 				
 			}
@@ -67,7 +66,7 @@ var views = (function(){
 			initialize : function() {
 				this.render();
 			}
-			, className : "answer-container"
+			, className : "answer"
 			, render : function() {
 
 				_.templateSettings = {
@@ -76,13 +75,21 @@ var views = (function(){
 
 				var template = _.template(jQuery('#answer_container_template').html())
 				// Compile the template using underscore
-	            jQuery(this.el).html( template({choice:'testing 123'}) );
+				jQuery(this.options.parent).append( template({id:this.options.id,answer:'testing 123'}) );
 			}
 		}),
 
 		button_basic : Backbone.View.extend({
 			initialize : function(){
 				
+			}
+			, events : {
+				"click" : "continue"
+			}
+			,continue : function(event) {
+				alert("ok")
+				survey.saveAnswerAndContinue();
+
 			}
 		})
 

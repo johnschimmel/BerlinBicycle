@@ -29,15 +29,23 @@ var surveyApi = function() {
 				return false;
 			}
 		}
+		, saveAnswerAndContinue : function() {
+			var question = this.getCurrentQuestion();
+			console.log("about to setAnswer");
+			question.setAnswer();
+			//this.nextQuestion();
+		}
 		, getCurrentQuestion : function() {
 			return questions.models[currentPosition-1];
-		},
-		getLocalViews : function() {
+		}
+		, getLocalViews : function() {
 			return localViews;
-		},
+		}
 
-		displayCurrentQuestion : function() {
-			question = this.getCurrentQuestion();
+		, displayCurrentQuestion : function() {
+			var question = this.getCurrentQuestion();
+			console.log('current questions');
+			console.log(question.response_type);
 
 			if (question) {
 
@@ -51,7 +59,13 @@ var surveyApi = function() {
 					, model : question
 				});
 
+
+				jQuery("#choices").html('');
 				choices = question.get('choices');
+				for(n in choices.models) {
+					var tmpChoice = choices.models[n];
+					console.log(tmpChoice);
+				}
 			}
 		}
 
@@ -63,16 +77,18 @@ var surveyApi = function() {
 			
 			for(q in current_survey.questions) {
 				var question = current_survey.questions[q];
-
+				
 				switch(question.response_type) {
 					case "multiplechoice":
 						var tmpModel = new models.MultipleChoiceQuestion(question);
+						break;
 					case "GeoMultipleLineString":
 						var tmpModel = new models.GeoMultipleLineString(question);
 						tmpModel.set({map:map});
 						tmpModel.on('markerAdded', function(markers){
-							console.log("marker added : " + markers);
-						})
+							//console.log("marker added : " + markers);
+						});
+						break;
 					default:
 						var tmpModel = new models.Question(question);
 				}
@@ -128,7 +144,7 @@ var surveyApi = function() {
 				}
 				geoQ.set('directions', data.directions);
 				console.log("new set")
-				console.log(geoQ.toJSON());
+				console.log(geoQ.get('directions'));
 			})
 			
 		}

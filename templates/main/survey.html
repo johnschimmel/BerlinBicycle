@@ -12,6 +12,7 @@
 				<div id="question_title"></div>
 				<div id="choices"></div>
 				<div id="buttonContainer">
+					<button class="btn disabled" id="backButton">Back</button>
 					<button class="btn disabled" id="continueButton">Continue</button>
 				</div>
 			</div>
@@ -20,6 +21,8 @@
 		<div class="span6 column">
 			<div id="map_canvas" style="width:550px;height:350px;"></div>
 			
+			<hr>
+			<div id="answer_container"></div>
 		</div>
 	
 	</div>
@@ -45,8 +48,9 @@
 <div><p>{{selection}}</p></div>
 </script>
 
+
 <script type="text/template" id="answer_container_template">
-<p>Answer container</p>
+<div class="answer" id="{{id}}"><p>Answer container</p></div>
 </script>
 
 {% endraw %}
