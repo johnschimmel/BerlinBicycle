@@ -12,6 +12,27 @@ from forms import *
 import models
 from libs.user import *
 
+from cartodb import CartoDBAPIKey,CartoDBException
+
+class CartoDBConnector(object):
+
+ 	def __init__(self):
+ 		self.user =  os.environ.get('CARTODB_EMAIL')
+ 		self.api_key = os.environ.get('CARTODB_APIKEY')
+ 		self.cartodb_domain = os.environ.get('CARTODB_DOMAIN')
+ 		
+
+ 		self.cl = CartoDBAPIKey(self.api_key, self.cartodb_domain)
+ 		
+	def test(self):
+		try:
+		    query = self.cl.sql('select ST_AsGeoJSON(the_geom) from test_line')
+		    print "running the query"
+		    return query
+		except CartoDBException as e:
+		    print ("some error ocurred", e)
+		    return e
+
 
 app = Flask(__name__)
 app.debug = True
@@ -123,11 +144,13 @@ def survey():
 
 @app.route('/test')
 def dbtest():
-	user = User()
-	user.get_by_email('john@base2john.com')
-	print user.id
-	print user.email
-	
+	#user = User()
+	#user.get_by_email('john@base2john.com')
+	#print user.id
+	#print user.email
+	cdb = CartoDBConnector()
+	print " ------- testing cartodb -------"
+	print cdb.test()
 	return "OK"
 	#print templateData['form'].csrf_token
 	#return render_template('main/testform.html', **templateData)
