@@ -15,7 +15,7 @@ from libs.user import *
 
 app = Flask(__name__)
 app.debug = True
-app.SECRET_KEY = os.environ.get('SECRET_KEY')
+app.secret_key = os.environ.get('SECRET_KEY')
 
 #mongolab connection
 connect('berlinbicycle', host=os.environ.get('MONGOLAB_URI'))
