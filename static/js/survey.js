@@ -75,10 +75,22 @@ var surveyApi = function() {
 
 				jQuery("#choices").html('');
 				choices = question.get('choices');
-				for(n in choices.models) {
-					var tmpChoice = choices.models[n];
-					//console.log(tmpChoice);
+				localViews.choices = [];
+				
+				if (question.get('response_type') == "multiplechoice") {
+					_.each(choices.models, function(choice){
+						console.log("choice");
+						console.log(choice);
+
+						var tmpChoiceView = new views.question_choice({
+							  parentElem : '#choices'
+							, model : choice
+						});
+						localViews.choices.push()
+
+					})	
 				}
+				
 
 				
 			}
@@ -114,8 +126,10 @@ var surveyApi = function() {
 					default:
 						var tmpModel = new models.Question(question);
 				}
-				
-				tmpModel.set('choices', new collections.Choices(question.answers));
+				tmpChoices = _.map(question.answers, function(answer){
+					return new models.QuestionChoice(answer);
+				})
+				tmpModel.set('choices', new collections.Choices(tmpChoices));
 				tmpModel.set('language',language);
 				delete tmpModel.unset('answers');
 
@@ -151,10 +165,12 @@ var surveyApi = function() {
 		, set : function(data) {
 			var that = this;
 			//get GEO question
+			var currentQ = this.getCurrentQuestion();
+
 			geoQuestions = questions.where({response_type:"GeoMultipleLineString"});
 			_.each(geoQuestions, function(geoQ) {
 				
-				if (_.isUndefined(data.markers) == false && data.markers.length >= geoQ.get('minMarkers')) {
+				if (currentQ.id==geoQ.id && _.isUndefined(data.markers) == false && data.markers.length >= geoQ.get('minMarkers')) {
 					
 					jQuery(localViews.button_controls.$el).find('button.continueButton').addClass('btn-success').removeAttr('disabled');
 					
@@ -163,10 +179,10 @@ var surveyApi = function() {
 						  el : '#choices'
 						, selection : data.directions.summary
 					});
+					geoQ.set('directions', data.directions);
+				
 				}
-				geoQ.set('directions', data.directions);
-				console.log("new set")
-				console.log(geoQ.get('directions'));
+				
 			})
 			
 		}

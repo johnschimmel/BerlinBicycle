@@ -71,7 +71,11 @@ var views = (function(){
 
 				var template = _.template(jQuery('#question_choice_template').html())
 				// Compile the template using underscore
-	            jQuery(this.el).html( template({choice:'testing 123'}) );
+				var templateData = {
+					choice: this.model.getLocalized('text')
+					, value : this.model.get('value')
+				};
+	            jQuery(this.options.parentElem).append( template(templateData) );
 	        }
 
 		}),

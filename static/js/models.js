@@ -84,6 +84,29 @@ models.GeoMultipleLineString = models.Question.extend({
 	}
 });
 
+models.QuestionChoice = Backbone.Model.extend({
+	initialize : function() {
+		this.set('language','en');
+	}
+	, setLanguage : function(languageCode) {
+		this.set('language')
+	}
+
+	, getLocalized : function(attrName, languageCode) {
+		var getLanguage;
+
+		if (_.isUndefined(languageCode)){
+			getLanguage = this.get('language');
+		} else {
+			getLanguage = languageCode;
+		}
+		
+		var tmpAttr = this.get(attrName);
+		return tmpAttr[getLanguage];
+	}
+});
+
+
 
 models.Answer = Backbone.Model.extend({});
 
