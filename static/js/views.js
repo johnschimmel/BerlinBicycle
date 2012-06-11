@@ -79,6 +79,7 @@ var views = (function(){
 				var templateData = {
 					  choice: this.model.getLocalized('text')
 					, value : this.model.get('value')
+					, action : this.model.get('action')
 				};
 	            jQuery(this.el).append( template(templateData) );
 	        }

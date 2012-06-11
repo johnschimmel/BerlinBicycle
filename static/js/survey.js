@@ -21,7 +21,7 @@ var surveyApi = function() {
 
 		}
 		, nextQuestion : function() {
-			console.log("inside nextQuestion");
+
 			if (currentPosition < questions.length){
 				currentPosition++;
 				
@@ -34,20 +34,29 @@ var surveyApi = function() {
 			}
 		}
 		, saveAnswerAndContinue : function() {
+			localViews.button_controls.undelegateEvents();
+
 			var question = this.getCurrentQuestion();
 
 			if (question.get('response_type') == "multiplechoice") {
 				var selectedAnswer = jQuery('input.question_choice_radio:checked').val();
-				console.log(selectedAnswer);
 				question.setAnswer(selectedAnswer);
+
+				var action = jQuery('input.question_choice_radio:checked').data('action');
+				if (action == "next") {
+					this.nextQuestion();
+				} else if (action == "end") {
+					this.end();
+				}
+			
 			} else {
 				question.setAnswer();
-	
+				this.nextQuestion();
 			}
 			
-			localViews.button_controls.undelegateEvents();
 			
-			this.nextQuestion();
+			
+			
 		}
 		, getCurrentQuestion : function() {
 			
@@ -192,6 +201,47 @@ var surveyApi = function() {
 				
 			})
 			
+		}
+
+		, end : function() {
+
+			var qs = this.getQuestions();
+			var s = this.getCurrentSurvey();
+
+			var responses = _.map(qs.models, function(q) {
+				
+				var answer = q.get('answer');
+				var newAnswer = {};
+				var tmpPath = [];
+				if (answer.path != undefined) {
+					tmpPath = _.map(answer.path, function(latlng){
+						return latlng.toUrlValue();
+					});
+					
+					newAnswer.path = tmpPath;
+					
+				}
+				newAnswer.response_type = q.get('response_type');
+				newAnswer.text = answer.text;
+
+				var answer = {
+					question : q.get('id'),
+					answer : newAnswer
+				}
+
+				return answer;
+			})
+
+			var surveyResponses = {
+				name : s.name,
+				surveyId : s.id,
+				responses : responses
+			}
+
+			this.responses = surveyResponses;
+
+			console.log(JSON.stringify(this.responses));
+
 		}
 
 	}

@@ -126,17 +126,17 @@
 				, "answers" : [
 					{
 					  "value" : "happy"
-					, "action" : { "goto" : "next" }
+					, "action" : { "goto" : "end" }
 					, "text" : {"en" : "Happy", "de" : "Fröhlich"}
 					},
 					{
 					  "value" : "neutral"
-					, "action" : { "goto" : "next" }
+					, "action" : { "goto" : "end" }
 					, "text" : {"en" : "Neutral", "de" : "Nutral"}
 					},
 					{
 					  "value" : "stressed"
-					, "action" : { "goto" :"next" }
+					, "action" : { "goto" :"end" }
 					, "text" : {"en" : "Stressed", "de" : "Betont"}
 					}]
 				}

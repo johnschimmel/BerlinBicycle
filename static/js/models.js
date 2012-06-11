@@ -111,6 +111,10 @@ models.QuestionChoice = Backbone.Model.extend({
 		var tmpAttr = this.get(attrName);
 		return tmpAttr[getLanguage];
 	}
+
+	, nextAction : function() {
+		
+	}
 });
 
 

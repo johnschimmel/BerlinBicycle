@@ -51,7 +51,7 @@
 
 <script type="text/template" id="question_choice_template">
 <label class="question_choice radio">
-	<input type="radio" class="question_choice_radio" name="question_choice" value="{{value}}">
+	<input type="radio" class="question_choice_radio" name="question_choice" value="{{value}}" data-action="{{action.goto}}">
 	{{choice}}
 </label>
 </script>
@@ -70,6 +70,13 @@
 	<span class="answer_question_label">{{questionLabel}}</span><br>
 	<span class="answer_user_response">{{answer.text}}</span>
 	<br><br>
+</div>
+</script>
+
+<script type="text/template" id="end_screen_template">
+<div>
+	<h2>Thank you for your participation!</h2>
+	<iframe width="420" height="315" src="http://www.youtube.com/embed/Vdto2MAsU0s" frameborder="0"></iframe>
 </div>
 </script>
 
