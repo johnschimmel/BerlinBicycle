@@ -26,8 +26,7 @@ class CartoDBConnector(object):
  		
 	def test(self):
 		try:
-		    query = self.cl.sql('select ST_AsGeoJSON(the_geom) from test_line')
-		    print "running the query"
+		    query = self.cl.sql('select ST_AsGeoJSON(the_geom) as the_geom from test_line')
 		    return query
 		except CartoDBException as e:
 		    print ("some error ocurred", e)
@@ -150,11 +149,9 @@ def dbtest():
 	#print user.email
 	cdb = CartoDBConnector()
 	print " ------- testing cartodb -------"
-	print cdb.test()
-	return "OK"
-	#print templateData['form'].csrf_token
-	#return render_template('main/testform.html', **templateData)
-
+	query = cdb.test()
+	return jsonify(query)
+	
 @app.route('/submit',  methods=['POST'])
 def form_submit_test():
 	tForm = TestForm(csrf_enabled=True)
