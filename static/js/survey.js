@@ -205,6 +205,21 @@ var surveyApi = function() {
 
 		, end : function() {
 
+			//clean up existing views
+			localViews.button_controls.undelegateEvents();
+			_.each(localViews.choices, function(tmpView){
+				tmpView.undelegateEvents();
+				jQuery(tmpView.$el).remove();
+			});
+
+			jQuery(localViews.survey_status.$el).remove();
+			jQuery(localViews.button_controls.$el).remove();
+			jQuery(localViews.q_title.$el).remove();
+
+			//display thank you end
+			jQuery("#thankyou").show();
+
+			//build final answer response object
 			var qs = this.getQuestions();
 			var s = this.getCurrentSurvey();
 
