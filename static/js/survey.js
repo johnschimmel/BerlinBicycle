@@ -23,10 +23,8 @@ var surveyApi = function() {
 		, nextQuestion : function() {
 			console.log("inside nextQuestion");
 			if (currentPosition < questions.length){
-				console.log("current position: " + currentPosition)
-				
 				currentPosition++;
-				console.log("new position: " + currentPosition);
+				
 				localViews.survey_status.update();
 				localViews.button_controls.$el.html('');
 				return this.displayCurrentQuestion();
@@ -37,8 +35,18 @@ var surveyApi = function() {
 		}
 		, saveAnswerAndContinue : function() {
 			var question = this.getCurrentQuestion();
-			question.setAnswer();
+
+			if (question.get('response_type') == "multiplechoice") {
+				var selectedAnswer = jQuery('input.question_choice_radio:checked').val();
+				console.log(selectedAnswer);
+				question.setAnswer(selectedAnswer);
+			} else {
+				question.setAnswer();
+	
+			}
+			
 			localViews.button_controls.undelegateEvents();
+			
 			this.nextQuestion();
 		}
 		, getCurrentQuestion : function() {
@@ -65,30 +73,29 @@ var surveyApi = function() {
 					model: question
 				});
 
-
 				localViews.button_controls = new views.button_basic({
 					  el:'#buttonContainer'
 					, id: question.get('id')
 					, model : question
 				});
 
-
 				jQuery("#choices").html('');
 				choices = question.get('choices');
 				localViews.choices = [];
 				
 				if (question.get('response_type') == "multiplechoice") {
+					
 					_.each(choices.models, function(choice){
-						console.log("choice");
-						console.log(choice);
-
+					
 						var tmpChoiceView = new views.question_choice({
-							  parentElem : '#choices'
+							  el : '#choices'
 							, model : choice
+							, question : question
 						});
-						localViews.choices.push()
 
-					})	
+						localViews.choices.push(tmpChoiceView);
+
+					});	
 				}
 				
 

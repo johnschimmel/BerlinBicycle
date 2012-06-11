@@ -12,7 +12,7 @@
 
 			<div id="question_container">
 				<div id="question_title"></div>
-				<div id="choices"></div>
+				<div id="choices" class="controls"></div>
 				<div id="buttonContainer">
 					
 				</div>
@@ -50,7 +50,10 @@
 </script>
 
 <script type="text/template" id="question_choice_template">
-<p>{{choice}} ({{value}})</p>
+<label class="question_choice radio">
+	<input type="radio" class="question_choice_radio" name="question_choice" value="{{value}}">
+	{{choice}}
+</label>
 </script>
 
 <script type="text/template" id="geoselection_container_template">
@@ -58,14 +61,15 @@
 </script>
 
 <script type="text/template" id="button_controls_template">
-	<button class="btn hide backButton" disabled>Back</button>
-	<button class="btn  continueButton" disabled >Continue</button>
+	<button class="btn hide backButton" disabled="disabled">Back</button>
+	<button class="btn continueButton" disabled="disabled" >Continue</button>
 </script>
 
 <script type="text/template" id="answer_container_template">
 <div class="answer" id="{{id}}">
 	<span class="answer_question_label">{{questionLabel}}</span><br>
-	<span class="answer_user_response">{{answer.summary}}</span>
+	<span class="answer_user_response">{{answer.text}}</span>
+	<br><br>
 </div>
 </script>
 

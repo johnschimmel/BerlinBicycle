@@ -59,10 +59,15 @@ var views = (function(){
 		}),
 
 		question_choice : Backbone.View.extend({
+			events: {
+				"change input[type=radio].question_choice_radio": "radioSelected"
+			},
+
 			initialize: function(){
+	        	this.model.view = this;
 	            this.render();
 	        }
-	        , className: "question-choice"
+	        
 	        , render: function(){
 	        	
 				_.templateSettings = {
@@ -72,12 +77,17 @@ var views = (function(){
 				var template = _.template(jQuery('#question_choice_template').html())
 				// Compile the template using underscore
 				var templateData = {
-					choice: this.model.getLocalized('text')
+					  choice: this.model.getLocalized('text')
 					, value : this.model.get('value')
 				};
-	            jQuery(this.options.parentElem).append( template(templateData) );
+	            jQuery(this.el).append( template(templateData) );
 	        }
+	        , radioSelected : function(e) {
+	        	localViews = survey.getLocalViews();
+	        	localViews.button_controls.$el.find('.continueButton').removeAttr('disabled');
 
+	        	e.stopPropagation();
+	        }
 		}),
 
 		geoselection : Backbone.View.extend({
@@ -94,9 +104,7 @@ var views = (function(){
 				};
 
 				var template = _.template(jQuery('#geoselection_container_template').html())
-				// Compile the template using underscore
-				
-	            jQuery(this.el).html( template({selection:this.options.selection}) );
+				jQuery(this.el).html( template({selection:this.options.selection}) );
 			}
 		}),
 
@@ -112,13 +120,13 @@ var views = (function(){
 				};
 
 				var template = _.template(jQuery('#answer_container_template').html())
-				// Compile the template using underscore
-				jQuery(this.options.parent).append( template({
-						id:"answer_"+this.model.get('id'),
-						questionLabel:this.model.getLocalized('question'), 
-						answer:this.model.get('answer')
-					}) 
-				);
+				var templateData = {
+					id:"answer_"+this.model.get('id'),
+					questionLabel:this.model.getLocalized('question'), 
+					answer:this.model.get('answer')
+				};
+
+				jQuery(this.options.parent).append( template(templateData) );
 			}
 		}),
 
@@ -127,7 +135,7 @@ var views = (function(){
 				this.render();
 			}
 			, events : {
-				"click" : "continue"
+				"click .continueButton" : "continue"
 			}
 
 			, render : function() {
@@ -136,8 +144,6 @@ var views = (function(){
 				};
 
 				var template = _.template(jQuery('#button_controls_template').html());
-				
-				// Compile the template using underscore
 				jQuery(this.el).html(template());
 
 			}

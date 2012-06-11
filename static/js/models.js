@@ -43,10 +43,17 @@ models.MultipleChoiceQuestion = models.Question.extend({
 
 	}
 
-	, setAnswer : function(answerObj) {
+	, setAnswer : function(answer) {
 		console.log("inside setAnswer for multiplechoice");
-		//this.set('answer',answerObj);
-		//return this.get('answer');
+		this.set('answer',{text:answer});
+		var answerView = new views.answer_container({
+			el : '#'+this.get('id'),
+			parent : '#answer_container',
+			model: this
+		});
+
+		this.set("answerView", answerView);
+		return this.get('answer');
 
 	}
 
@@ -67,7 +74,7 @@ models.GeoMultipleLineString = models.Question.extend({
 
 		var directions = this.get('directions');
 		this.set('answer',{
-			  summary : directions.summary
+			  text : directions.summary
 			, path : directions.overview_path
 			, polyline : directions.overview_polyline
 		});
