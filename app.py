@@ -166,30 +166,27 @@ def surveySubmit():
 	for question in testData.get('responses'):
 		if question['answer'].get('response_type') == "GeoMultipleLineString":
 			
-			geojson = theResponse.prepPathForGeoJSON(question['answer'].get('path'))
-			print geojson
-			survey = models.SurveyResponse()
-			survey.type_of_cyclist = "Bold"
-			survey.geo = geojson
-			survey.responses = theResponse.prepResponsesForMongo( testData.get('responses') )
-			survey.save()
-
-			return jsonify(survey.geo)
-
 			if question['answer'].get('path'):
+			
+				geojson = theResponse.prepPathForGeoJSON(question['answer'].get('path'))
+				survey = models.SurveyResponse()
+				survey.type_of_cyclist = "Bold"
+				survey.geo = geojson
+				survey.responses = theResponse.prepResponsesForMongo( testData.get('responses') )
+				survey.save()
+
+				# save to cartodb
 				cartodbPath = theResponse.prepPathForCartodb(question['answer'].get('path'))
 
-			#create sql
-			cdb = CartoDBConnector()
-			result = cdb.newResponse({
-				"path" : cartodbPath
-			})
+				#create sql
+				cdb = CartoDBConnector()
+				result = cdb.newResponse({
+					"path" : cartodbPath
+				})
 
-			print "result = "
-			print result
-			#insert into cartodb
+				return json.dumps(question['answer'].get('path'))
 
-	return json.dumps(question['answer'].get('path'))
+	return "hmm, not sure if that went through"
 
 @app.route('/test')
 def dbtest():
