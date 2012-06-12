@@ -85,7 +85,7 @@ var views = (function(){
 	        }
 	        , radioSelected : function(e) {
 	        	localViews = survey.getLocalViews();
-	        	localViews.button_controls.$el.find('.continueButton').removeAttr('disabled');
+	        	localViews.button_controls.$el.find('.continueButton').addClass('btn-success').removeAttr('disabled');
 
 	        	e.stopPropagation();
 	        }
@@ -149,8 +149,6 @@ var views = (function(){
 
 			}
 			,continue : function(event) {
-
-				console.log('this was clicked ' + this.id);
 				survey.saveAnswerAndContinue();
 
 			}
