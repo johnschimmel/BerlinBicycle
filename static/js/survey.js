@@ -89,7 +89,7 @@ var surveyApi = function() {
 				});
 
 				jQuery("#choices").html('');
-				choices = question.get('choices');
+				var choices = question.get('choices');
 				localViews.choices = [];
 				
 				if (question.get('response_type') == "multiplechoice") {
