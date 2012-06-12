@@ -148,7 +148,7 @@ var views = (function(){
 				jQuery(this.el).html(template());
 
 			}
-			,continue : function(event) {
+			, continue : function(event) {
 				survey.saveAnswerAndContinue();
 
 			}

@@ -147,7 +147,7 @@ var surveyApi = function() {
 				})
 				tmpModel.set('choices', new collections.Choices(tmpChoices));
 				tmpModel.set('language',language);
-				delete tmpModel.unset('answers');
+				tmpModel.unset('answers');
 
 				questions.add( tmpModel );
 				
