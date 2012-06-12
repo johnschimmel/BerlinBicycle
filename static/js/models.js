@@ -22,11 +22,11 @@ models.Question = Backbone.Model.extend({
 	}
 
 	, display : function() {
-		console.log('displaying question model');
-		console.log(this);
+		//console.log('displaying question model');
+		//console.log(this);
 	}
 	, setAnswer : function() {
-		console.log("inside setAnswer main question model");
+		//console.log("inside setAnswer main question model");
 	}
 	
 });
@@ -38,13 +38,13 @@ models.MultipleChoiceQuestion = models.Question.extend({
 	
 
 	, display : function() {
-		console.log("this is a multiplechoice question");
-		console.log(this);
+		//console.log("this is a multiplechoice question");
+		//console.log(this);
 
 	}
 
 	, setAnswer : function(answer) {
-		console.log("inside setAnswer for multiplechoice");
+		//console.log("inside setAnswer for multiplechoice");
 		this.set('answer',{text:answer});
 		var answerView = new views.answer_container({
 			el : '#'+this.get('id'),
@@ -65,12 +65,12 @@ models.GeoMultipleLineString = models.Question.extend({
 	}
 	
 	, display : function() {
-		console.log("this is a multiplechoice question");
-		console.log(this);
+		//console.log("this is a multiplechoice question");
+		//console.log(this);
 	}
 
 	, setAnswer : function() {
-		console.log("inside geo question setAnswer");
+		//console.log("inside geo question setAnswer");
 
 		var directions = this.get('directions');
 		this.set('answer',{

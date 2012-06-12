@@ -255,7 +255,7 @@ var surveyApi = function() {
 
 			this.responses = surveyResponses;
 
-			console.log(JSON.stringify(this.responses));
+			//console.log(JSON.stringify(this.responses));
 
 		}
 
