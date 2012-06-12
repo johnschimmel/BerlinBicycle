@@ -136,7 +136,7 @@ var views = (function(){
 				this.render();
 			}
 			, events : {
-				"click .continueButton" : "continue"
+				"click .continueButton" : "savecontinue"
 			}
 
 			, render : function() {
@@ -148,7 +148,7 @@ var views = (function(){
 				jQuery(this.el).html(template());
 
 			}
-			, continue : function(event) {
+			, savecontinue : function(event) {
 				survey.saveAnswerAndContinue();
 
 			}
