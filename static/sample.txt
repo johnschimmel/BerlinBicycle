@@ -13,3 +13,13 @@ INSERT INTO test_line (the_geom) values (ST_GeomFromText('MULTILINESTRING((-74.0
 
 
 SELECT ST_AsGeoJSON(the_geom) from test_line
+
+
+myGeoJSON = '{"coordinates": [[52.100000000000001, -34.131], [65.230999999999995, -34.234000000000002]],"type": "MultiLineString"}'
+
+myData = json.loads(myGeoJSON)
+
+myMultiLineString = geojson.geometry.MultiLineString.to_instance(myData)
+
+##mydict = json.loads(myjson)
+

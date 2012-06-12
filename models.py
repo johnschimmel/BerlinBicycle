@@ -14,4 +14,10 @@ class User(Document):
 	active = BooleanField(default=True)
 
 
-	
+class SurveyResponse(Document):
+	timestamp = DateTimeField(default=datetime.datetime.now())
+	survey = StringField()
+	surveyId = StringField()
+	geo = DictField(default={})
+	responses = ListField(default={})
+	type_of_cyclist = StringField()

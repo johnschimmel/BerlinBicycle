@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from flask import Flask, session, request, url_for, escape, render_template, jsonify, flash, redirect
+from flask import Flask, session, request, url_for, escape, render_template, json, jsonify, flash, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.login import (LoginManager, current_user, login_required,
                             login_user, logout_user, UserMixin, AnonymousUser,
@@ -11,6 +11,7 @@ from mongoengine import *
 from forms import *
 import models
 from libs.user import *
+from libs.response import *
 
 from cartodb import CartoDBAPIKey,CartoDBException
 
@@ -23,7 +24,19 @@ class CartoDBConnector(object):
  		
 
  		self.cl = CartoDBAPIKey(self.api_key, self.cartodb_domain)
- 		
+ 	
+ 	def newResponse(self, response_data):
+ 		try:
+
+ 			print response_data
+ 			print "--------------"
+ 			sqlStr = "INSERT INTO test_line (the_geom) values (ST_GeomFromText('MULTILINESTRING((%(path)s))',4326))" % {"path":response_data.get('path')}
+ 			query = self.cl.sql(sqlStr)
+ 			return query
+ 		except CartoDBException as e:
+ 			print ("some error occurred",e)
+ 			return e
+
 	def test(self):
 		try:
 		    query = self.cl.sql('select ST_AsGeoJSON(the_geom) as the_geom from test_line')
@@ -137,9 +150,46 @@ def survey():
 	templateData = {
 		'title' : 'Test Survey'
 	}
-
+	session['survey_user'] = True
 	return render_template('/main/survey.html', **templateData);
 	
+@app.route('/api/survey/save', methods=['GET','POST'])
+def surveySubmit():
+
+	#if not session.has_key('survey_user') or session['survey_user'] != True:
+	#	return "You must be a valid survey user"
+
+	theResponse = SurveyResponse()
+
+	testJSON = '{"name":"Test Survey","surveyId":"test_survey","responses":[{"question":"choose_a_road","answer":{"path":["40.74851,-74.00021","40.7484,-73.99994","40.74778,-74.00043","40.74649,-74.00136","40.74521,-74.00226","40.74462,-74.00269","40.74405,-74.00317","40.74289,-74.00404","40.7423,-74.00446","40.73816,-73.99463"],"response_type":"GeoMultipleLineString","text":"W 16th St"}},{"question":"is_the_gradient_amenable_to_cycling","answer":{"response_type":"multiplechoice","text":"no"}},{"question":"link_to_destinations","answer":{"response_type":"multiplechoice","text":"yes"}},{"question":"street_offers_priority_through_intersections","answer":{"response_type":"multiplechoice","text":"some"}},{"question":"how_do_you_feel","answer":{"response_type":"multiplechoice","text":"neutral"}}]}'
+	testData = json.loads(testJSON)
+	for question in testData.get('responses'):
+		if question['answer'].get('response_type') == "GeoMultipleLineString":
+			
+			geojson = theResponse.prepPathForGeoJSON(question['answer'].get('path'))
+			print geojson
+			survey = models.SurveyResponse()
+			survey.type_of_cyclist = "Bold"
+			survey.geo = geojson
+			survey.responses = theResponse.prepResponsesForMongo( testData.get('responses') )
+			survey.save()
+
+			return jsonify(survey.geo)
+
+			if question['answer'].get('path'):
+				cartodbPath = theResponse.prepPathForCartodb(question['answer'].get('path'))
+
+			#create sql
+			cdb = CartoDBConnector()
+			result = cdb.newResponse({
+				"path" : cartodbPath
+			})
+
+			print "result = "
+			print result
+			#insert into cartodb
+
+	return json.dumps(question['answer'].get('path'))
 
 @app.route('/test')
 def dbtest():
@@ -147,11 +197,24 @@ def dbtest():
 	#user.get_by_email('john@base2john.com')
 	#print user.id
 	#print user.email
-	cdb = CartoDBConnector()
-	print " ------- testing cartodb -------"
-	query = cdb.test()
-	return jsonify(query)
 	
+	survey = models.SurveyResponse()
+	survey.type_of_cyclist = "Bold"
+	survey.geo = { 
+		"type": "MultiLineString",
+  		"coordinates": [
+			[ [100.0, 0.0], [101.0, 1.0] ],
+			[ [102.0, 2.0], [103.0, 3.0] ]
+		]}
+	survey.responses = {
+		'num1' : 'Yes',
+		'num2' : 'No'
+	}
+
+	survey.save()
+
+	return jsonify(survey)
+
 @app.route('/submit',  methods=['POST'])
 def form_submit_test():
 	tForm = TestForm(csrf_enabled=True)

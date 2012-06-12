@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 
 from flask import Flask, session, request, url_for, escape, render_template, jsonify, flash, redirect

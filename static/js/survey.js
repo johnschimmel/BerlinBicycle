@@ -248,14 +248,14 @@ var surveyApi = function() {
 			})
 
 			var surveyResponses = {
-				name : s.name,
+				survey : s.name,
 				surveyId : s.id,
 				responses : responses
 			}
 
 			this.responses = surveyResponses;
 
-			//console.log(JSON.stringify(this.responses));
+			console.log(JSON.stringify(this.responses));
 
 		}
 
