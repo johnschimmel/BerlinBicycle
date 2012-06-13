@@ -156,37 +156,44 @@ def survey():
 @app.route('/api/survey/save', methods=['GET','POST'])
 def surveySubmit():
 
-	#if not session.has_key('survey_user') or session['survey_user'] != True:
-	#	return "You must be a valid survey user"
+	if not session.has_key('survey_user'):
+		return redirect('/survey')
+		#return "You must be a valid survey user"
+	if request.method == "POST":
 
-	theResponse = SurveyResponse()
+		theResponse = SurveyResponse()
 
-	testJSON = '{"name":"Test Survey","surveyId":"test_survey","responses":[{"question":"choose_a_road","answer":{"path":["40.74851,-74.00021","40.7484,-73.99994","40.74778,-74.00043","40.74649,-74.00136","40.74521,-74.00226","40.74462,-74.00269","40.74405,-74.00317","40.74289,-74.00404","40.7423,-74.00446","40.73816,-73.99463"],"response_type":"GeoMultipleLineString","text":"W 16th St"}},{"question":"is_the_gradient_amenable_to_cycling","answer":{"response_type":"multiplechoice","text":"no"}},{"question":"link_to_destinations","answer":{"response_type":"multiplechoice","text":"yes"}},{"question":"street_offers_priority_through_intersections","answer":{"response_type":"multiplechoice","text":"some"}},{"question":"how_do_you_feel","answer":{"response_type":"multiplechoice","text":"neutral"}}]}'
-	testData = json.loads(testJSON)
-	for question in testData.get('responses'):
-		if question['answer'].get('response_type') == "GeoMultipleLineString":
-			
-			if question['answer'].get('path'):
-			
-				geojson = theResponse.prepPathForGeoJSON(question['answer'].get('path'))
-				survey = models.SurveyResponse()
-				survey.type_of_cyclist = "Bold"
-				survey.geo = geojson
-				survey.responses = theResponse.prepResponsesForMongo( testData.get('responses') )
-				survey.save()
+		#testJSON = '{"name":"Test Survey","surveyId":"test_survey","responses":[{"question":"choose_a_road","answer":{"path":["40.74851,-74.00021","40.7484,-73.99994","40.74778,-74.00043","40.74649,-74.00136","40.74521,-74.00226","40.74462,-74.00269","40.74405,-74.00317","40.74289,-74.00404","40.7423,-74.00446","40.73816,-73.99463"],"response_type":"GeoMultipleLineString","text":"W 16th St"}},{"question":"is_the_gradient_amenable_to_cycling","answer":{"response_type":"multiplechoice","text":"no"}},{"question":"link_to_destinations","answer":{"response_type":"multiplechoice","text":"yes"}},{"question":"street_offers_priority_through_intersections","answer":{"response_type":"multiplechoice","text":"some"}},{"question":"how_do_you_feel","answer":{"response_type":"multiplechoice","text":"neutral"}}]}'
+		#testData = json.loads(testJSON)
+		print "received form submission"
+		print request.form['responsejson']
+		
+		submissionData = json.loads(request.form['responsejson'])
 
-				# save to cartodb
-				cartodbPath = theResponse.prepPathForCartodb(question['answer'].get('path'))
+		for question in submissionData.get('responses'):
+			if question['answer'].get('response_type') == "GeoMultipleLineString":
+				
+				if question['answer'].get('path'):
+				
+					geojson = theResponse.prepPathForGeoJSON(question['answer'].get('path'))
+					survey = models.SurveyResponse()
+					survey.type_of_cyclist = "Bold"
+					survey.geo = geojson
+					survey.responses = theResponse.prepResponsesForMongo( submissionData.get('responses') )
+					survey.save()
 
-				#create sql
-				cdb = CartoDBConnector()
-				result = cdb.newResponse({
-					"path" : cartodbPath
-				})
+					# save to cartodb
+					cartodbPath = theResponse.prepPathForCartodb(question['answer'].get('path'))
 
-				return json.dumps(question['answer'].get('path'))
+					#create sql
+					cdb = CartoDBConnector()
+					result = cdb.newResponse({
+						"path" : cartodbPath
+					})
 
-	return "hmm, not sure if that went through"
+					return json.dumps(question['answer'].get('path'))
+
+		return "hmm, not sure if that went through"
 
 @app.route('/test')
 def dbtest():

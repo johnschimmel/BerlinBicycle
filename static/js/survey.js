@@ -254,9 +254,22 @@ var surveyApi = function() {
 			}
 
 			this.responses = surveyResponses;
+			jQuery.ajax({
+				  url : '/api/survey/save'
+				, type : 'POST'
+				, dataType : 'JSON'
+				, data : {responsejson:JSON.stringify(this.responses)}
+				, success : function(response) {
+					console.log("success response");
+					console.log(response);
 
-			console.log(JSON.stringify(this.responses));
-
+				}
+				, error : function(error) {
+					console.log("error");
+					console.log(error);
+				}
+			});
+			
 		}
 
 	}
