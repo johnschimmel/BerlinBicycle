@@ -19,5 +19,5 @@ class SurveyResponse(Document):
 	survey = StringField()
 	surveyId = StringField()
 	geo = DictField(default={})
-	responses = ListField(default={})
+	responses = DictField(default={})
 	type_of_cyclist = StringField()

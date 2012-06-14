@@ -9,13 +9,16 @@ class SurveyResponse(object):
 	def __init__(self):
 		self.test = "okie dokie"
 	
-	def prepResponsesForMongo(self, responses):
-		surveyResponses = []
+	def prepResponsesForDB(self, responses):
+		#returns dictionary of [{ questionName: answerText}]
+		surveyResponses = {}
 
 		for resp in responses:
-			surveyResponses.append({ resp.get('question') : resp['answer'].get('text') })
+			surveyResponses[resp.get('question')] = resp['answer'].get('text')
 
 		return surveyResponses
+
+	
 
 	def prepPathForGeoJSON(self, pathList):
 		lngLats = []
