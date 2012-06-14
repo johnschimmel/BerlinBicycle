@@ -10,7 +10,7 @@ var markers = new collections.Markers;
 
 function initialize() {
 	var myOptions = {
-	  center: new google.maps.LatLng(40.74667,-73.9879),
+	  center: new google.maps.LatLng(52.51700293,13.40997),
 	  zoom: 14,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
 	};

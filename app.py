@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 import os
 
 from flask import Flask, session, request, url_for, escape, render_template, json, jsonify, flash, redirect
@@ -30,6 +30,8 @@ class CartoDBConnector(object):
 
  			print response_data
  			print "--------------"
+ 			
+ 			
 
  			sqlValues = {
  				"survey" : response_data.get('survey'),
@@ -47,7 +49,10 @@ class CartoDBConnector(object):
  				values \
  				('%(survey)s', '%(surveyid)s', ST_GeomFromText('MULTILINESTRING((%(path)s))',4326), '%(choose_a_road)s', '%(how_do_you_feel)s', '%(link_to_destinations)s','%(is_the_gradient_amenable_to_cycling)s', '%(street_offers_priority_through_intersections)s')" % sqlValues
  			print sqlStr
- 			query = self.cl.sql(sqlStr)
+ 			print type(sqlStr)
+ 			#print sqlStr.encode('utf-8','replace')
+ 			print "--------------------"
+ 			query = self.cl.sql(sqlStr.encode('utf-8','replace'))
  			return query
  		
  		except CartoDBException as e:
@@ -56,11 +61,16 @@ class CartoDBConnector(object):
 
 	def test(self):
 		try:
-		    query = self.cl.sql('select ST_AsGeoJSON(the_geom) as the_geom from test_line')
-		    return query
+
+			sqlstr = "INSERT INTO dynamicconnections \
+			(survey, surveyid, the_geom, choose_a_road, how_do_you_feel, link_to_destinations,is_the_gradient_amenable_to_cycling,street_offers_priority_through_intersections) \
+			values \
+			('None', 'None', ST_GeomFromText('MULTILINESTRING((13.40568 52.51951, 13.40669 52.51879, 13.40726 52.51843, 13.40835 52.51758, 13.40918 52.51698, 13.40998 52.5164, 13.41032 52.51623, 13.41057 52.51616, 13.41177 52.51596, 13.41234 52.51586, 13.41315 52.51576, 13.41348 52.51575))',4326), '%(street)s', 'stressed', 'yes','yes', 'no')" % {'street':'Spandauer Straße and Stralauer Straße'}
+			query = self.cl.sql(sqlstr.encode('utf-8','replace'))
+			return query
 		except CartoDBException as e:
-		    print ("some error ocurred", e)
-		    return e
+			print ("some error ocurred", e)
+			return e
 
 
 app = Flask(__name__)
@@ -228,27 +238,10 @@ def surveySubmit():
 
 @app.route('/test')
 def dbtest():
-	#user = User()
-	#user.get_by_email('john@base2john.com')
-	#print user.id
-	#print user.email
-	
-	survey = models.SurveyResponse()
-	survey.type_of_cyclist = "Bold"
-	survey.geo = { 
-		"type": "MultiLineString",
-  		"coordinates": [
-			[ [100.0, 0.0], [101.0, 1.0] ],
-			[ [102.0, 2.0], [103.0, 3.0] ]
-		]}
-	survey.responses = {
-		'num1' : 'Yes',
-		'num2' : 'No'
-	}
-
-	survey.save()
-
-	return jsonify(survey)
+	cdb = CartoDBConnector()
+	result = cdb.test()
+	print result
+	return "ok"
 
 @app.route('/submit',  methods=['POST'])
 def form_submit_test():
