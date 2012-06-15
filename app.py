@@ -28,11 +28,6 @@ class CartoDBConnector(object):
  	def newResponse(self, response_data):
  		try:
 
- 			print response_data
- 			print "--------------"
- 			
- 			
-
  			sqlValues = {
  				"survey" : response_data.get('survey'),
  				"surveyid" : response_data.get('surveyid'),
@@ -48,7 +43,14 @@ class CartoDBConnector(object):
  				(survey, surveyid, the_geom, choose_a_road, how_do_you_feel, link_to_destinations,is_the_gradient_amenable_to_cycling,street_offers_priority_through_intersections) \
  				values \
  				('%(survey)s', '%(surveyid)s', ST_GeomFromText('MULTILINESTRING((%(path)s))',4326), '%(choose_a_road)s', '%(how_do_you_feel)s', '%(link_to_destinations)s','%(is_the_gradient_amenable_to_cycling)s', '%(street_offers_priority_through_intersections)s')" % sqlValues
+ 			
+ 			app.logger.debug('cartodb insert sql')
+ 			app.logger.debug(sqlStr)
+
  			query = self.cl.sql(sqlStr.encode('utf-8','replace'))
+ 			app.logger.debug('query results')
+ 			app.logger.debug(query)
+ 			
  			return query
  		
  		except CartoDBException as e:
@@ -188,6 +190,10 @@ def surveySubmit():
 		theResponse = SurveyResponse()
 
 		submissionData = json.loads(request.form['responsejson'])
+
+		app.logger.debug('survey response data')
+		app.logger.debug(submissionData)
+
 
 		for question in submissionData.get('responses'):
 			if question['answer'].get('response_type') == "GeoMultipleLineString":
