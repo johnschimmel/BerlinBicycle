@@ -178,7 +178,7 @@ def survey():
 	contentObj = Content()
 	
 	templateData = {
-		'texts' : contentObj.getAllText(language='de'),
+		'texts' : contentObj.getAllText(),
 		'title' : 'Test Survey'
 	}
 	session['survey_user'] = True
@@ -258,22 +258,43 @@ def dbQuery():
 	print "********************"
 	return jsonify({'titles':titles})
 
+@app.route('/admin/content/edit/<textid>')
+def admin_content_edit(textid):
+	contentObj = Content()
+	mainDoc = contentObj.getMainDocument()
+	allTexts = mainDoc.content
+	
+	if allTexts.has_key(textid):
+		templateData = {
+			'textid' : textid,
+			'content' : allTexts.get(textid)
+		}
+		app.logger.debug(templateData)
 
+		return render_template('/admin/content_edit.html', **templateData)
+	else:
+		return redirect('/admin')
 
 @app.route('/admin')
 def admin():
 
 	contentObj = Content()
-	allText = contentObj.getAllText()
+	mainDoc = contentObj.getMainDocument()
 
 	#create content
 	templateData = {
-		'texts' : allText
+		'textids' : mainDoc.content.keys(),
+		'texts' : mainDoc.content
 	}
+	app.logger.debug(templateData);
+
 	return render_template('/admin/index.html', **templateData)
 
+
+
+
 @app.route('/api/admin/content/new', methods=['POST'])
-def admin_content_new():
+def api_content_new():
 
 	formData = request.form
 	for d in formData:
@@ -291,8 +312,28 @@ def admin_content_new():
 	}
 	mainContent.save()
 	
-	flash('New text added to database.','info')
+	flash('New text added to database.')
 	return redirect('/admin')
+
+@app.route('/api/admin/content/edit/<textid>', methods=['POST'])
+def api_content_edit(textid):
+	formData = request.form
+	contentObj = Content()
+	mainDoc = contentObj.getMainDocument()
+
+	if mainDoc and request.method == "POST":
+		mainDoc.content[textid] = {
+			'en' : formData.get('language[en]'),
+			'de' : formData.get('language[de]'),
+			'description' : formData.get('description')
+		}
+
+		mainDoc.save()
+
+		flash("Text has been updated.")
+		return redirect('/admin/content/edit/%s' % textid)
+	else:
+		return redirect('/admin')
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
