@@ -10,8 +10,8 @@ var markers = new collections.Markers;
 
 function initialize() {
 	var myOptions = {
-	  center: new google.maps.LatLng(52.51700293,13.40997),
-	  zoom: 14,
+	  center: new google.maps.LatLng(52.532408,13.41152),
+	  zoom: 13,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);

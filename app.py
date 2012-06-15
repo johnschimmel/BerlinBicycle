@@ -12,6 +12,7 @@ from forms import *
 import models
 from libs.user import *
 from libs.response import *
+from libs.dynContent import *
 
 from cartodb import CartoDBAPIKey,CartoDBException
 
@@ -173,7 +174,11 @@ def logout():
 
 @app.route('/survey')
 def survey():
+	
+	contentObj = Content()
+	
 	templateData = {
+		'texts' : contentObj.getAllText(language='de'),
 		'title' : 'Test Survey'
 	}
 	session['survey_user'] = True
@@ -255,7 +260,39 @@ def dbQuery():
 
 
 
+@app.route('/admin')
+def admin():
 
+	contentObj = Content()
+	allText = contentObj.getAllText()
+
+	#create content
+	templateData = {
+		'texts' : allText
+	}
+	return render_template('/admin/index.html', **templateData)
+
+@app.route('/api/admin/content/new', methods=['POST'])
+def admin_content_new():
+
+	formData = request.form
+	for d in formData:
+		app.logger.debug(d)
+
+	contentObj = Content()
+	mainContent = contentObj.getMainDocument()
+
+	#set content from form
+	language_content_id = formData.get('content_id')
+	mainContent.content[language_content_id] = {
+		'en' : formData.get('language[en]'),
+		'de' : formData.get('language[de]'),
+		'description' : formData.get('description')
+	}
+	mainContent.save()
+	
+	flash('New text added to database.','info')
+	return redirect('/admin')
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.

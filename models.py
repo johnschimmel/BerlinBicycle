@@ -21,3 +21,8 @@ class SurveyResponse(Document):
 	geo = DictField(default={})
 	responses = DictField(default={})
 	type_of_cyclist = StringField()
+
+
+class Content(Document):
+	document_id = StringField()
+	content = DictField()

@@ -13,3 +13,5 @@ class RegisterForm(Form):
 	type_of_cyclist = SelectField('Type of Cyclist', choices=[
         ('bold_and_the_brave','Bold and the Brave'),
         ('no_way_no_how',"No Way, No How")])
+
+	
