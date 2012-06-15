@@ -48,10 +48,6 @@ class CartoDBConnector(object):
  				(survey, surveyid, the_geom, choose_a_road, how_do_you_feel, link_to_destinations,is_the_gradient_amenable_to_cycling,street_offers_priority_through_intersections) \
  				values \
  				('%(survey)s', '%(surveyid)s', ST_GeomFromText('MULTILINESTRING((%(path)s))',4326), '%(choose_a_road)s', '%(how_do_you_feel)s', '%(link_to_destinations)s','%(is_the_gradient_amenable_to_cycling)s', '%(street_offers_priority_through_intersections)s')" % sqlValues
- 			print sqlStr
- 			print type(sqlStr)
- 			#print sqlStr.encode('utf-8','replace')
- 			print "--------------------"
  			query = self.cl.sql(sqlStr.encode('utf-8','replace'))
  			return query
  		
@@ -191,11 +187,6 @@ def surveySubmit():
 
 		theResponse = SurveyResponse()
 
-		#testJSON = '{"name":"Test Survey","surveyId":"test_survey","responses":[{"question":"choose_a_road","answer":{"path":["40.74851,-74.00021","40.7484,-73.99994","40.74778,-74.00043","40.74649,-74.00136","40.74521,-74.00226","40.74462,-74.00269","40.74405,-74.00317","40.74289,-74.00404","40.7423,-74.00446","40.73816,-73.99463"],"response_type":"GeoMultipleLineString","text":"W 16th St"}},{"question":"is_the_gradient_amenable_to_cycling","answer":{"response_type":"multiplechoice","text":"no"}},{"question":"link_to_destinations","answer":{"response_type":"multiplechoice","text":"yes"}},{"question":"street_offers_priority_through_intersections","answer":{"response_type":"multiplechoice","text":"some"}},{"question":"how_do_you_feel","answer":{"response_type":"multiplechoice","text":"neutral"}}]}'
-		#testData = json.loads(testJSON)
-		print "received form submission"
-		print request.form['responsejson']
-		
 		submissionData = json.loads(request.form['responsejson'])
 
 		for question in submissionData.get('responses'):
@@ -222,15 +213,6 @@ def surveySubmit():
 					cartodbValue = dictOfTextResponses
 					cartodbValue['path'] = cartodbPath
 					result = cdb.newResponse(cartodbValue)
-					# {
-					# 	"survey" : response_data.get('survey'),
-		 		# 		"surveyid" : response_data.get('surveyid'),
-		 		# 		"choose_a_road" : response_data.get('choose_a_road'),
-		 		# 		"how_do_you_feel" : response_data.get('how_do_you_feel'),
-		 		# 		"is_the_gradient_amenable_to_cycling" : response_data.get('is_the_gradient_amenable_to_cycling'),
-		 		# 		"street_offers_priority_through_intersections" : response_data.get("street_offers_priority_through_intersections"),
-					# 	"path" : cartodbPath
-					# })
 
 					return json.dumps(question['answer'].get('path'))
 
