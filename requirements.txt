@@ -6,3 +6,4 @@ Flask-Login==0.1.2
 Flask-Babel==0.8
 cartodb==0.5
 geojson==1.0.1
+Flask-Bcrypt==0.5.2

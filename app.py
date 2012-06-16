@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.login import (LoginManager, current_user, login_required,
                             login_user, logout_user, UserMixin, AnonymousUser,
                             confirm_login, fresh_login_required)
+from flaskext.bcrypt import Bcrypt
 
 from mongoengine import *
 from forms import *
@@ -75,6 +76,7 @@ class CartoDBConnector(object):
 app = Flask(__name__)
 app.debug = True
 app.secret_key = os.environ.get('SECRET_KEY')
+flask_bcrypt = Bcrypt(app)
 
 #mongolab connection
 connect('berlinbicycle', host=os.environ.get('MONGOLAB_URI'))
@@ -114,19 +116,26 @@ def secret():
 
 @app.route("/register", methods=["GET","POST"])
 def register():
-	if request.method == 'POST' and "email" in request.form:
+	registerForm = RegisterForm(csrf_enabled=True)
+
+	if request.method == 'POST' and registerForm.validate():
 		email = request.form['email']
-		anonymous = True
-		type_of_cyclist = request.form['type_of_cyclist']
+		password_hash = flask_bcrypt.generate_password_hash(request.form['password'])
+		
+		user = User(email,password_hash)
+		
+		try:
+			user.save()
+			if login_user(user, remember="no"):
+				flash("Logged in!")
+				return redirect(request.args.get("next") or url_for("index"))
+			else:
+				flash("unable to log you in")
 
-		user = User(email, anonymous, type_of_cyclist)
-		user.save()
-		if login_user(user, remember="no"):
-			flash("Logged in!")
-			return redirect(request.args.get("next") or url_for("index"))
-		else:
-			flash("unable to log you in")
-
+		except:
+			flash("unable to register with that email address")
+			app.logger.error("Error on registration - possible duplicate emails")
+			
 	registerForm = RegisterForm(csrf_enabled=True)
 	templateData = {
 
@@ -139,10 +148,9 @@ def register():
 def login():
     if request.method == "POST" and "email" in request.form:
         email = request.form["email"]
-        user = User()
-        user.get_by_email(email)
-        
-     	if user.get_by_email(email) and user.is_active():
+        userObj = User()
+        user = userObj.get_by_email_w_password(email)
+     	if user and flask_bcrypt.check_password_hash(user.password,request.form["password"]) and user.is_active():
 			remember = request.form.get("remember", "no") == "yes"
 
 			if login_user(user, remember=remember):
@@ -229,23 +237,23 @@ def surveySubmit():
 
 		return "hmm, not sure if that went through"
 
-@app.route('/test')
-def dbtest():
-	cdb = CartoDBConnector()
-	result = cdb.test()
-	print result
-	return "ok"
+# @app.route('/test')
+# def dbtest():
+# 	cdb = CartoDBConnector()
+# 	result = cdb.test()
+# 	print result
+# 	return "ok"
 
-@app.route('/submit',  methods=['POST'])
-def form_submit_test():
-	tForm = TestForm(csrf_enabled=True)
+# @app.route('/submit',  methods=['POST'])
+# def form_submit_test():
+# 	tForm = TestForm(csrf_enabled=True)
 	
-	print request.form
+# 	print request.form
 
-	if request.form and tForm.validate():
-		return jsonify(request.form)
-	else:
-		return "Sorry"
+# 	if request.form and tForm.validate():
+# 		return jsonify(request.form)
+# 	else:
+# 		return "Sorry"
 
 
 @app.route('/dbtest')

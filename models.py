@@ -7,12 +7,12 @@ class Post(Document):
 
 
 class User(Document):
-	email = EmailField()
-	anonymous = BooleanField(default=True)
-	type_of_cyclist = StringField()
-	timestamp = DateTimeField(default=datetime.datetime.now())
+	email = EmailField(unique=True)
+	password = StringField(default=True)
 	active = BooleanField(default=True)
-
+	isAdmin = BooleanField(default=False)
+	timestamp = DateTimeField(default=datetime.datetime.now())
+	
 
 class SurveyResponse(Document):
 	timestamp = DateTimeField(default=datetime.datetime.now())

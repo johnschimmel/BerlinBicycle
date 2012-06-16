@@ -13,43 +13,53 @@ import models
 
 
 class User(UserMixin):
-    def __init__(self, email=None, anonymous=None, type_of_cyclist=None, active=True, id=None):
+    def __init__(self, email=None, password=None, active=True, id=None):
         self.email = email
-        self.anonymous = anonymous
-        self.type_of_cyclist = type_of_cyclist
+        self.password = password
         self.active = active
+        self.isAdmin = False
         self.id = None
 
 
     def save(self): 
-        newUser = models.User(email=self.email, type_of_cyclist=self.type_of_cyclist, anonymous=self.anonymous, active=self.active)
+        newUser = models.User(email=self.email, password=self.password, active=self.active)
         newUser.save()
         print "new user id = %s " % newUser.id
         self.id = newUser.id
         return self.id
 
     def get_by_email(self, email):
-    	query = models.User.objects(email=email).limit(1)
-    	if len(query) == 1:
-    		dbUser = query[0]
-    		print dbUser.id
 
-    		print  "------ inside user.save ------"
-    		self.email = dbUser.email
-    		self.anonymous = dbUser.anonymous
-    		self.type_of_cyclist = dbUser.type_of_cyclist
-    		self.active = dbUser.active
-    		self.id = dbUser.id
-    		return self
+    	dbUser = models.User.objects.get(email=email)
+    	if dbUser:
+            self.email = dbUser.email
+            self.active = dbUser.active
+            self.id = dbUser.id
+            return self
         else:
             return None
     
+    def get_by_email_w_password(self, email):
+
+        try:
+            dbUser = models.User.objects.get(email=email)
+            
+            if dbUser:
+                self.email = dbUser.email
+                self.active = dbUser.active
+                self.password = dbUser.password
+                self.id = dbUser.id
+                return self
+            else:
+                return None
+        except:
+            print "there was an error"
+            return None
+
     def get_by_id(self, id):
     	dbUser = models.User.objects.with_id(id)
     	if dbUser:
     		self.email = dbUser.email
-    		self.anonymous = dbUser.anonymous
-    		self.type_of_cyclist = dbUser.type_of_cyclist
     		self.active = dbUser.active
     		self.id = dbUser.id
 
