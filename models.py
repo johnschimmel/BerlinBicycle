@@ -20,7 +20,9 @@ class SurveyResponse(Document):
 	surveyId = StringField()
 	geo = DictField(default={})
 	responses = DictField(default={})
-	type_of_cyclist = StringField()
+	type_of_cyclist = StringField(default='')
+	email = StringField(default='')
+	language = StringField(default='')
 
 
 class Content(Document):

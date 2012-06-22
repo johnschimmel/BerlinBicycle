@@ -104,6 +104,8 @@ def load_user(id):
 
 login_manager.setup_app(app)
 
+
+
 @app.route("/")
 def index():
 	if 'language' not in session:
@@ -121,82 +123,19 @@ def index():
 def setLanguage(langcode):
 	if langcode in ['de','en']:
 		session['language'] = langcode
-	return redirect('/')
 
-@app.route("/secret")
-@fresh_login_required
-def secret():
-    return render_template("/auth/secret.html")
+	if request.referrer:
+		return redirect(request.referrer)
+	else:
+		return redirect('/')
 
-@app.route("/register", methods=["GET","POST"])
-def register():
-	registerForm = RegisterForm(csrf_enabled=True)
-
-	if request.method == 'POST' and registerForm.validate():
-		email = request.form['email']
-		password_hash = flask_bcrypt.generate_password_hash(request.form['password'])
-		
-		user = User(email,password_hash)
-		
-		try:
-			user.save()
-			if login_user(user, remember="no"):
-				flash("Logged in!")
-				return redirect(request.args.get("next") or url_for("index"))
-			else:
-				flash("unable to log you in")
-
-		except:
-			flash("unable to register with that email address")
-			app.logger.error("Error on registration - possible duplicate emails")
-			
-	registerForm = RegisterForm(csrf_enabled=True)
-	templateData = {
-
-		'form' : registerForm
-	}
-
-	return render_template("/auth/register.html", **templateData)
-	
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST" and "email" in request.form:
-        email = request.form["email"]
-        userObj = User()
-        user = userObj.get_by_email_w_password(email)
-     	if user and flask_bcrypt.check_password_hash(user.password,request.form["password"]) and user.is_active():
-			remember = request.form.get("remember", "no") == "yes"
-
-			if login_user(user, remember=remember):
-				flash("Logged in!")
-				return redirect(request.args.get("next") or url_for("index"))
-			else:
-				flash("unable to log you in")
-
-    return render_template("/auth/login.html")
-
-
-@app.route("/reauth", methods=["GET", "POST"])
-@login_required
-def reauth():
-    if request.method == "POST":
-        confirm_login()
-        flash(u"Reauthenticated.")
-        return redirect(request.args.get("next") or url_for("index"))
-    return render_template("/auth/reauth.html")
-
-
-@app.route("/logout")
-@login_required
-def logout():
-    logout_user()
-    flash("Logged out.")
-    return redirect(url_for("index"))
-
-
-@app.route('/survey')
+@app.route('/survey', methods=['GET','POST'])
 def survey():
-	
+	if request.method == "POST":
+		session['email'] = request.form.get('email','')
+		session['type_of_cyclist'] = request.form.get('biker','')
+
+
 	contentObj = Content()
 	
 	templateData = {
@@ -298,6 +237,7 @@ def admin_content_edit(textid):
 		return redirect('/admin')
 
 @app.route('/admin')
+@fresh_login_required
 def admin():
 
 	contentObj = Content()
@@ -356,6 +296,80 @@ def api_content_edit(textid):
 		return redirect('/admin/content/edit/%s' % textid)
 	else:
 		return redirect('/admin')
+
+
+
+
+
+@app.route("/secret")
+@fresh_login_required
+def secret():
+    return render_template("/auth/secret.html")
+
+@app.route("/register", methods=["GET","POST"])
+def register():
+	registerForm = RegisterForm(csrf_enabled=True)
+
+	if request.method == 'POST' and registerForm.validate():
+		email = request.form['email']
+		password_hash = flask_bcrypt.generate_password_hash(request.form['password'])
+		
+		user = User(email,password_hash)
+		
+		try:
+			user.save()
+			if login_user(user, remember="no"):
+				flash("Logged in!")
+				return redirect(request.args.get("next") or url_for("index"))
+			else:
+				flash("unable to log you in")
+
+		except:
+			flash("unable to register with that email address")
+			app.logger.error("Error on registration - possible duplicate emails")
+			
+	registerForm = RegisterForm(csrf_enabled=True)
+	templateData = {
+
+		'form' : registerForm
+	}
+
+	return render_template("/auth/register.html", **templateData)
+	
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST" and "email" in request.form:
+        email = request.form["email"]
+        userObj = User()
+        user = userObj.get_by_email_w_password(email)
+     	if user and flask_bcrypt.check_password_hash(user.password,request.form["password"]) and user.is_active():
+			remember = request.form.get("remember", "no") == "yes"
+
+			if login_user(user, remember=remember):
+				flash("Logged in!")
+				return redirect(request.args.get("next") or url_for("index"))
+			else:
+				flash("unable to log you in")
+
+    return render_template("/auth/login.html")
+
+
+@app.route("/reauth", methods=["GET", "POST"])
+@login_required
+def reauth():
+    if request.method == "POST":
+        confirm_login()
+        flash(u"Reauthenticated.")
+        return redirect(request.args.get("next") or url_for("index"))
+    return render_template("/auth/reauth.html")
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("Logged out.")
+    return redirect(url_for("index"))
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
