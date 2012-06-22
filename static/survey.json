@@ -12,8 +12,8 @@
 						, "de" : "Bitte wählen Sie eine Straße aus, auf der Sie regelmäßig Fahrrad fahren."
 					}
 				, "description" : {
-						  "en" : ""
-						, "de" : ""
+						  "en" : "Find a street and click on the map to make a route."
+						, "de" : "Find a street and click on the map to make a route."
 				}
 				, "position" : 1
 				, "response_type" : "GeoMultipleLineString"
