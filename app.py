@@ -106,7 +106,13 @@ login_manager.setup_app(app)
 
 @app.route("/")
 def index():
-    return render_template("/auth/index.html")
+	contentObj = Content()
+	templateData = {
+		'content' : contentObj.getAllText()
+	}
+
+
+	return render_template("/main/index.html", **templateData)
 
 
 @app.route("/secret")
@@ -186,8 +192,8 @@ def survey():
 	contentObj = Content()
 	
 	templateData = {
-		'texts' : contentObj.getAllText(),
-		'title' : 'Test Survey'
+		'content' : contentObj.getAllText(),
+		
 	}
 	session['survey_user'] = True
 	return render_template('/main/survey.html', **templateData);

@@ -8,11 +8,11 @@
 				{
 				  "id" : "choose_a_road"
 				, "question" : {
-						  "en" : "Choose a road or street where you ride your bicycle"
-						, "de" : ""
+						  "en" : "Please select a road/street where you regularly ride your bicycle."
+						, "de" : "Bitte wählen Sie eine Straße aus, auf der Sie regelmäßig Fahrrad fahren."
 					}
 				, "description" : {
-						  "en" : "Using the map click to select the start and end of a street you ride."
+						  "en" : ""
 						, "de" : ""
 				}
 				, "position" : 1
@@ -29,8 +29,8 @@
 				{
 				  "id" : "is_the_gradient_amenable_to_cycling"
 				, "question" : {
-						  "en" : "Is the gradient/topography/slope amenable to cycling?"
-						, "de" : ""
+						  "en" : "Do you think the traffic volumes, vehicle speeds, number of parkedcars, visibility at intersections and topography on this road/street are 'bicycle friendly'?"
+						, "de" : "Würden Sie sagen, dass das Verkehrsaufkommen, die Fahrzeuggeschwindigkeit, die Anzahl geparkter Autos, die Sichtverhältnisse an Straßenkreuzungen und die Topographie in dieser Straße 'Fahrrad freundlich' sind?"
 					}
 				, "description" : {
 						  "en" : ""
@@ -54,8 +54,8 @@
 				{
 				  "id" : "link_to_destinations"
 				, "question" : {
-						"en" : "Does this street provide a direct link/route to destinations/ services maximum number of trip attractors/destinations?"
-					  , "de" : ""
+						"en" : "Does cycling on this road/street provide you with good access to a large number of destinations, for example, shops, cafes, school, workplace?"
+					  , "de" : "Ermöglicht Ihnen das Fahrrad fahren auf dieser Straße guten Zugang zu einer großen Anzahl an Zielen, z.B. Läden, Cafés, Schulen, Arbeitsplatz?"
 					}	
 				, "description" : {
 						  "en" : ""
@@ -80,8 +80,8 @@
 				{
 				  "id" : "street_offers_priority_through_intersections"
 				, "question" : {
-						  "en" : "Does this street provide priority through intersections?"
-						, "de" : ""
+						  "en" : "When you stop at or cycle through intersections on this road/street do you feel?"
+						, "de" : "Fühlen Sie sich beim Anhalten oder Überqueren von Kreuzungen aufdieser Straße?"
 					}
 					
 				, "description" : {
@@ -93,19 +93,19 @@
 				, "response_type" : "multiplechoice"
 				, "answers" : [
 					{
-					  "value" : "yes"
+					  "value" : "safe"
 					, "action" : { "goto" : "next" }
-					, "text" : {"en" : "Yes", "de" : "Ja"}
+					, "text" : {"en" : "Safe", "de" : "Sicher"}
 					},
 					{
-					  "value" : "some"
+					  "value" : "neutral"
 					, "action" : { "goto" : "next" }
-					, "text" : {"en" : "Some", "de" : "Einige"}
+					, "text" : {"en" : "Neutral", "de" : "Neutral"}
 					},
 					{
-					  "value" : "no"
+					  "value" : "unsafe"
 					, "action" : { "goto" :"next" }
-					, "text" : {"en" : "No", "de" : "Nein"}
+					, "text" : {"en" : "Unsafe", "de" : "Unsicher"}
 					}
 					]
 				},
@@ -113,8 +113,8 @@
 				{
 				  "id" : "how_do_you_feel"
 				, "question" : {
-						  "en" : "When you cycle on this street do you feel…?"
-						, "de" : ""
+						  "en" : "Generally when you ride a bicycle on this road/street do you feel?"
+						, "de" : "Wie fühlen Sie sich allgemein beim Fahrrad fahren auf dieser Straße?"
 					}
 					
 				, "description" : {
@@ -127,17 +127,17 @@
 					{
 					  "value" : "happy"
 					, "action" : { "goto" : "end" }
-					, "text" : {"en" : "Happy", "de" : "Fröhlich"}
+					, "text" : {"en" : "Happy", "de" : "Zufrieden"}
 					},
 					{
 					  "value" : "neutral"
 					, "action" : { "goto" : "end" }
-					, "text" : {"en" : "Neutral", "de" : "Nutral"}
+					, "text" : {"en" : "Neutral", "de" : "Neutral"}
 					},
 					{
 					  "value" : "stressed"
 					, "action" : { "goto" :"end" }
-					, "text" : {"en" : "Stressed", "de" : "Betont"}
+					, "text" : {"en" : "Stressed", "de" : "Gestresst"}
 					}]
 				}
 

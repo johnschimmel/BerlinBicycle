@@ -18,7 +18,7 @@
 				</div>
 			</div>
 
-			<div id="thankyou" class="hide">
+			<div id="thankyou" class="hide" style="display:none;">
 				<h2>Thank you for taking the survey.</h2>
 				<iframe width="420" height="315" src="http://www.youtube.com/embed/Vdto2MAsU0s" frameborder="0"></iframe>
 			</div>
@@ -38,6 +38,15 @@
 
 
 {% block scripts %}
+<script src="{{ url_for('static', filename='js/libs/underscore.js') }}"></script>
+<script src="{{ url_for('static', filename='js/libs/backbone.js') }}"></script>
+<script src="{{ url_for('static', filename='js/models.js') }}"></script>
+<script src="{{ url_for('static', filename='js/collections.js') }}"></script> 
+<script src="{{ url_for('static', filename='js/views.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plugins.js') }}"></script>
+<script src="{{ url_for('static', filename='js/libs/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBaRo2YQPaE38erga3ijdF3y_-O84semsw&sensor=false"></script>
+  
 <script src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
 
 {% raw %}
