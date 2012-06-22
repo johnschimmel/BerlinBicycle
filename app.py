@@ -306,7 +306,7 @@ def api_content_edit(textid):
 def secret():
     return render_template("/auth/secret.html")
 
-@app.route("/register", methods=["GET","POST"])
+@app.route("/theregister", methods=["GET","POST"])
 def register():
 	registerForm = RegisterForm(csrf_enabled=True)
 

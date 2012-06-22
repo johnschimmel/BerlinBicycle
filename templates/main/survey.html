@@ -3,36 +3,38 @@
 {% block styles %}{% endblock %}
 
 {% block body %}
-	<br><br><br><br>
-	<div class="row">
+<div id="content" class="cf interior">
+	<div class="content-wrap">
 
-		<div id="left" class="column span6">
-			
-			<div id="survey_status"></div>
+		<div id="text-block">
+			<div id="question">
+				<div id="survey_status"></div>
 
-			<div id="question_container">
-				<div id="question_title"></div>
-				<div id="choices" class="controls"></div>
-				<div id="buttonContainer">
-					
+				<div id="question_container">
+					<div id="question_title"></div>
+					<div id="choices" class="controls"></div>
+					<div id="buttonContainer">
+						
+					</div>
+				</div>
+
+				<div id="thankyou" class="hide" style="display:none;">
+					<h2>Thank you for taking the survey.</h2>
+					<iframe width="420" height="315" src="http://www.youtube.com/embed/Vdto2MAsU0s" frameborder="0"></iframe>
 				</div>
 			</div>
-
-			<div id="thankyou" class="hide" style="display:none;">
-				<h2>Thank you for taking the survey.</h2>
-				<iframe width="420" height="315" src="http://www.youtube.com/embed/Vdto2MAsU0s" frameborder="0"></iframe>
+		
+			<div id="map" class="span6 column">
+				<p class="biker-type">Biker Type:<strong> Bold and the Fearless</strong></p>
+				<div id="canvas" style="height:350px;"></div>
+				
+				<hr>
+				<div id="answer_container"></div>
 			</div>
 		</div>
 	
-		<div class="span6 column">
-			<div id="map_canvas" style="height:350px;"></div>
-			
-			<hr>
-			<div id="answer_container"></div>
-		</div>
-	
-	</div>
-
+	</div><!-- content-wrap -->
+</div><!-- / content -->
 
 {% endblock %}
 
@@ -53,8 +55,7 @@
 
 
 <script type="text/template" id="survey_status_template">
-<h1>{{title}}</h1>
-<h4>Question {{currentPosition}} of {{ totalNumQuestions }}</h4>
+<span class="question-number">Question <strong>{{currentPosition}}</strong> of {{ totalNumQuestions }}</span>
 </script>
 
 
@@ -75,8 +76,9 @@
 </script>
 
 <script type="text/template" id="button_controls_template">
-	<button class="btn hide backButton" disabled="disabled">Back</button>
-	<button class="btn continueButton" disabled="disabled" >Continue</button>
+	<!--<button class="btn hide backButton" disabled="disabled">Back</button>-->
+	<div class="center"><input type="submit" value="continue" disabled="disabled" class="button continueButton" /></div>
+	
 </script>
 
 <script type="text/template" id="answer_container_template">

@@ -20,7 +20,7 @@
 <div id="wrap">
     <div id="header" class="cf">
         <div class="content-wrap">
-          <div id="logo"><img src="/static/img/lab_dynamic_logo.png" alt= "LAB Dynamic Connections logo" /></div><!-- /#logo -->
+          <div id="logo"><img src="/static/img/lab_dynamic_logo.png" alt= "{{content.get('navbar_logo_alt')}}" /></div><!-- /#logo -->
           <div id="navigation">
             <ul>
                  <li><a href="/" id="nav-home">{{content.get('navbar_home')}}</a></li>
@@ -36,15 +36,13 @@
         </div><!-- /#head-wrap -->
     </div><!-- /#header -->
          
-    <div id="content" class="cf landing">
     {% block body %}{% endblock %}
-    </div><!-- /#content -->
-      
+
     <div id="footer" class="box">
       <div class="content-wrap">
         <p>{{content.get('footer_text')|safe}}. 
-          <a href="#"><img src="/static/img/fb_icon.png" alt="Facebook Icon" /></a> 
-          <a href="#"><img src="/static/img/tw_icon.png" alt="Twitter Icon" /></a> 
+          <a href="#"><img src="/static/img/fb_icon.png" alt="Facebook" /></a> 
+          <a href="#"><img src="/static/img/tw_icon.png" alt="Twitter" /></a> 
         </p>
       </div><!-- /.content-wrap -->
     </div><!-- /#footer -->

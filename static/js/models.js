@@ -2,7 +2,7 @@ var models = {};
 models.Question = Backbone.Model.extend({
 	  urlRoot : '/question'
 	, initialize : function() {
-		this.set('language','en');
+		this.set('language',survey.getLanguage());
 	}
 	, setLanguage : function(languageCode) {
 		this.set('language')
@@ -33,7 +33,7 @@ models.Question = Backbone.Model.extend({
 
 models.MultipleChoiceQuestion = models.Question.extend({
 	initialize : function() {
-		this.set('language','en');
+		this.set('language',survey.getLanguage());
 	}
 	
 
@@ -61,7 +61,7 @@ models.MultipleChoiceQuestion = models.Question.extend({
 
 models.GeoMultipleLineString = models.Question.extend({
 	initialize : function() {
-		this.set('language','en');
+		this.set('language',survey.getLanguage());
 	}
 	
 	, display : function() {
@@ -93,7 +93,7 @@ models.GeoMultipleLineString = models.Question.extend({
 
 models.QuestionChoice = Backbone.Model.extend({
 	initialize : function() {
-		this.set('language','en');
+		this.set('language',survey.getLanguage());
 	}
 	, setLanguage : function(languageCode) {
 		this.set('language')

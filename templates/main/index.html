@@ -3,38 +3,40 @@
 {% block styles %}{% endblock %}
 
 {% block body %}
+<div id="content" class="cf landing">
 
-	    	<div class="content-wrap">  
-			    <div id="text-block" class="box">
-			    	<h1>{{content.get('what_type_of_cyclist_are_you_title')|safe}}</h1>
-			    	<form class="labelize">
-			    		
-				    	<input type="radio" name="biker" id="bold" value="Bold and fearless" /> 
-				    	<label for="bold">
-				    		{{ content.get('cyclist_type_bold')|safe}}
-				    	</label>
-				    	
-			    		<input type="radio" name="biker" id="enthusiastic" value="Enthusiastic and fairly confident" /> 
-			    		<label for="enthusiastic">
-				    		{{ content.get('cyclist_type_regular')|safe}}
-				    	</label>
-			    		
-				    	<input type="radio" name="biker" id="interested" value="Interested but scared and concerned" /> 
-				    	<label for="interested">
-				    		{{ content.get('cyclist_type_interested')|safe}}
-				    	</label>				    	
-			    		
-				    	<input type="radio" name="biker" id="no-way" value="No Way No How" />
-				    	<label for="no-way"> 
-				    		{{ content.get('cyclist_type_noway')|safe}}
-				    	</label>				    	
-				    	<label for="email">{{content.get('type_of_cyclist_email_text')|safe}}</label>
-				    	<input type="email" id="email" name="email" />
-			    		
-			    		<div class="center"><input type="submit" placeholder="continue" value="{{content.get('type_of_cyclist_submit_btn')|safe}}" class="button" /></div>
-			    	</form>
-				</div><!-- /#text-block -->
-			</div><!-- /.content-wrap -->
+	<div class="content-wrap">  
+	    <div id="text-block" class="box">
+	    	<h1>{{content.get('what_type_of_cyclist_are_you_title')|safe}}</h1>
+	    	<form class="labelize">
+	    		
+		    	<input type="radio" name="biker" id="bold" value="Bold and fearless" /> 
+		    	<label for="bold">
+		    		{{ content.get('cyclist_type_bold')|safe}}
+		    	</label>
+		    	
+	    		<input type="radio" name="biker" id="enthusiastic" value="Enthusiastic and fairly confident" /> 
+	    		<label for="enthusiastic">
+		    		{{ content.get('cyclist_type_regular')|safe}}
+		    	</label>
+	    		
+		    	<input type="radio" name="biker" id="interested" value="Interested but scared and concerned" /> 
+		    	<label for="interested">
+		    		{{ content.get('cyclist_type_interested')|safe}}
+		    	</label>				    	
+	    		
+		    	<input type="radio" name="biker" id="no-way" value="No Way No How" />
+		    	<label for="no-way"> 
+		    		{{ content.get('cyclist_type_noway')|safe}}
+		    	</label>				    	
+		    	<label for="email">{{content.get('type_of_cyclist_email_text')|safe}}</label>
+		    	<input type="email" id="email" name="email" />
+	    		
+	    		<div class="center"><input type="submit" placeholder="continue" value="{{content.get('type_of_cyclist_submit_btn')|safe}}" class="button" /></div>
+	    	</form>
+		</div><!-- /#text-block -->
+	</div><!-- /.content-wrap -->
+</div>
 
 {% endblock %}
 

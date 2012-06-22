@@ -12,6 +12,11 @@ var surveyApi = function() {
 		setLanguage : function(languageCode) {
 			language = languageCode;
 		}
+
+		, getLanguage : function() {
+			return language;
+		}
+
 	
 		, getCurrentSurvey : function() {
 			return current_survey;
@@ -188,7 +193,7 @@ var surveyApi = function() {
 				
 				if (currentQ.id==geoQ.id && _.isUndefined(data.markers) == false && data.markers.length >= geoQ.get('minMarkers')) {
 					
-					jQuery(localViews.button_controls.$el).find('button.continueButton').addClass('btn-success').removeAttr('disabled');
+					jQuery(localViews.button_controls.$el).find('input.continueButton').addClass('btn-success').removeAttr('disabled');
 					
 
 					localViews.geoselection = new views.geoselection({
