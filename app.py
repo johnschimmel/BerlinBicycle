@@ -120,6 +120,34 @@ def index():
 
 	return render_template("/main/index.html", **templateData)
 
+
+@app.route("/about")
+def about():
+	if 'language' not in session:
+		session['language'] = 'de'
+
+	contentObj = Content()
+	templateData = {
+		'content' : contentObj.getAllText(language=session['language'])
+	}
+
+	return render_template("/main/about.html", **templateData)
+	
+
+@app.route("/contact")
+def contact():
+	if 'language' not in session:
+		session['language'] = 'de'
+
+	contentObj = Content()
+	templateData = {
+		'content' : contentObj.getAllText(language=session['language'])
+	}
+
+	return render_template("/main/contact.html", **templateData)
+
+
+
 @app.route("/language/<langcode>")
 def setLanguage(langcode):
 	if langcode in ['de','en']:

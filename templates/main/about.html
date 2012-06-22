@@ -1,0 +1,20 @@
+{% extends "/layout.html" %}
+
+{% block styles %}{% endblock %}
+
+{% block body %}
+<div id="content" class="cf interior">
+
+	<div class="content-wrap">  
+	    <div id="text-block" class="box">
+	    	{{ content.get('page_about')|safe }}
+		</div><!-- /#text-block -->
+	</div><!-- /.content-wrap -->
+</div>
+
+<div id="form_please_select_msg" style="display:none;">{{content.get('cyclist_type_form_error')}}</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
