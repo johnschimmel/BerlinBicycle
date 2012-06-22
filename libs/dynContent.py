@@ -20,7 +20,9 @@ class Content(object):
 		return mainContent
 
 	def getAllText(self, language='en'):
-		
+		if language is None:
+			language = 'de'
+
 		mainDocument = self.getMainDocument()
 
 		localizedTexts = {}

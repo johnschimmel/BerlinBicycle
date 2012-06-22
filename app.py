@@ -106,14 +106,22 @@ login_manager.setup_app(app)
 
 @app.route("/")
 def index():
+	if 'language' not in session:
+		session['language'] = 'de'
+
 	contentObj = Content()
 	templateData = {
-		'content' : contentObj.getAllText()
+		'content' : contentObj.getAllText(language=session['language'])
 	}
 
 
 	return render_template("/main/index.html", **templateData)
 
+@app.route("/language/<langcode>")
+def setLanguage(langcode):
+	if langcode in ['de','en']:
+		session['language'] = langcode
+	return redirect('/')
 
 @app.route("/secret")
 @fresh_login_required
@@ -192,7 +200,7 @@ def survey():
 	contentObj = Content()
 	
 	templateData = {
-		'content' : contentObj.getAllText(),
+		'content' : contentObj.getAllText(language=session['language'])
 		
 	}
 	session['survey_user'] = True
