@@ -8,35 +8,37 @@
 	<div class="content-wrap">  
 	    <div id="text-block" class="box">
 	    	<h1>{{content.get('what_type_of_cyclist_are_you_title')|safe}}</h1>
-	    	<form class="labelize">
+	    	<form id="type_of_cyclist" class="labelize" action="/survey" method="POST">
 	    		
-		    	<input type="radio" name="biker" id="bold" value="Bold and fearless" /> 
+		    	<input type="radio" name="biker" id="bold" value="bold" /> 
 		    	<label for="bold">
 		    		{{ content.get('cyclist_type_bold')|safe}}
 		    	</label>
 		    	
-	    		<input type="radio" name="biker" id="enthusiastic" value="Enthusiastic and fairly confident" /> 
+	    		<input type="radio" name="biker" id="enthusiastic" value="enthusiastic" /> 
 	    		<label for="enthusiastic">
 		    		{{ content.get('cyclist_type_regular')|safe}}
 		    	</label>
 	    		
-		    	<input type="radio" name="biker" id="interested" value="Interested but scared and concerned" /> 
+		    	<input type="radio" name="biker" id="interested" value="interested" /> 
 		    	<label for="interested">
 		    		{{ content.get('cyclist_type_interested')|safe}}
 		    	</label>				    	
 	    		
-		    	<input type="radio" name="biker" id="no-way" value="No Way No How" />
+		    	<input type="radio" name="biker" id="no-way" value="no-way" />
 		    	<label for="no-way"> 
 		    		{{ content.get('cyclist_type_noway')|safe}}
 		    	</label>				    	
-		    	<label for="email">{{content.get('type_of_cyclist_email_text')|safe}}</label>
-		    	<input type="email" id="email" name="email" />
+		    	<label for="emailAddress">{{content.get('type_of_cyclist_email_text')|safe}}</label>
+		    	<input type="text" id="emailAddress" name="email" />
 	    		
 	    		<div class="center"><input type="submit" placeholder="continue" value="{{content.get('type_of_cyclist_submit_btn')|safe}}" class="button" /></div>
 	    	</form>
 		</div><!-- /#text-block -->
 	</div><!-- /.content-wrap -->
 </div>
+
+<div id="form_please_select_msg" style="display:none;">{{content.get('cyclist_type_form_error')}}</div>
 
 {% endblock %}
 

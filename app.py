@@ -134,7 +134,7 @@ def survey():
 	if request.method == "POST":
 		session['email'] = request.form.get('email','')
 		session['type_of_cyclist'] = request.form.get('biker','')
-
+		app.logger.debug(session)
 
 	contentObj = Content()
 	

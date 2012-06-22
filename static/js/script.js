@@ -5,7 +5,8 @@
 jQuery.noConflict();
 
 function form_labelize(){  
-	jQuery(".labelize input:text, .labelize input[type=email]").clearingInput(); 
+	jQuery(".labelize input:text, .labelize input[type=email]").clearingInput();
+	console.log("okokok");
 }   
 
 jQuery(document).ready(function() {
@@ -24,6 +25,18 @@ jQuery(document).ready(function() {
 		});
 	}
 	// end of iOS label fix
+
+	jQuery("form#type_of_cyclist").on('submit', function(e){ 
+		var selected = jQuery('.labelize input[type=radio]:checked').val();
+		
+		if (selected == undefined) {
+			var msg = jQuery("#form_please_select_msg").text();
+			alert(msg);
+			e.preventDefault();
+			return false;	
+		}
+		//else continue with form submission
+	});
 });
 
 
