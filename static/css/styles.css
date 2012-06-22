@@ -52,10 +52,13 @@ h3 { font-family: "ff-tisa-web-pro", Georgia, Times, serif; font-size: 1.375em; 
 
 /* Question 1 */
 #content.landing label, #content.landing input[type=text] { margin: 20px auto; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e6e6e6; width: 80%; display: block; color: #555; }
+#content.landing label, #content.landing input[type=email] { margin: 20px auto; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e6e6e6; width: 80%; display: block; color: #555; }
+
 #content.landing input[type=radio] { position: absolute; left: -2000px; }
-#content.landing input[type=radio]:checked + label { border: 1px solid #ccc; background: #eaebeb; }
-#content.landing input[type=radio]:hover + label { border: 1px solid #ddd; background: #f1f3f4; }
+#content.landing input[type=radio]:checked + label { border: 1px solid #ccc; background: #00adeb; } /* eaebeb*/
+#content.landing input[type=radio]:hover + label { border: 1px solid #ddd; background: #00adeb; } /* f1f3f4 */
 #content.landing input[type=text] { font-size: 26px; color: #b7b7b7; }
+#content.landing input[type=email] { font-size: 26px; color: #b7b7b7; }
 #content.landing p { color: #666; font-family: georgia, times, serif; }
 #content.landing .center  { margin: 0 auto; width: 130px; }
 
