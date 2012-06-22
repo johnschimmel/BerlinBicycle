@@ -71,6 +71,8 @@ models.GeoMultipleLineString = models.Question.extend({
 
 	, setAnswer : function() {
 		//console.log("inside geo question setAnswer");
+		
+		google.maps.event.clearListeners(map, 'click');
 
 		var directions = this.get('directions');
 		this.set('answer',{

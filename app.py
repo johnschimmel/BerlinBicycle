@@ -32,19 +32,20 @@ class CartoDBConnector(object):
 
  			sqlValues = {
  				"survey" : response_data.get('survey'),
- 				"surveyid" : response_data.get('surveyid'),
+ 				"surveyid" : response_data.get('survey_id'),
  				"path":response_data.get('path'),
  				"choose_a_road" : response_data.get('choose_a_road'),
  				"how_do_you_feel" : response_data.get('how_do_you_feel'),
  				"link_to_destinations" : response_data.get('link_to_destinations'),
  				"is_the_gradient_amenable_to_cycling" : response_data.get('is_the_gradient_amenable_to_cycling'),
- 				"street_offers_priority_through_intersections" : response_data.get("street_offers_priority_through_intersections")
+ 				"street_offers_priority_through_intersections" : response_data.get("street_offers_priority_through_intersections"),
+ 				"type_of_cyclist" : response_data.get('type_of_cyclist')
  			}
 
  			sqlStr = "INSERT INTO dynamicconnections \
- 				(survey, surveyid, the_geom, choose_a_road, how_do_you_feel, link_to_destinations,is_the_gradient_amenable_to_cycling,street_offers_priority_through_intersections) \
+ 				(survey, surveyid, type_of_cyclist, the_geom, choose_a_road, how_do_you_feel, link_to_destinations,is_the_gradient_amenable_to_cycling,street_offers_priority_through_intersections) \
  				values \
- 				('%(survey)s', '%(surveyid)s', ST_GeomFromText('MULTILINESTRING((%(path)s))',4326), '%(choose_a_road)s', '%(how_do_you_feel)s', '%(link_to_destinations)s','%(is_the_gradient_amenable_to_cycling)s', '%(street_offers_priority_through_intersections)s')" % sqlValues
+ 				('%(survey)s', '%(surveyid)s', '%(type_of_cyclist)s', ST_GeomFromText('MULTILINESTRING((%(path)s))',4326), '%(choose_a_road)s', '%(how_do_you_feel)s', '%(link_to_destinations)s','%(is_the_gradient_amenable_to_cycling)s', '%(street_offers_priority_through_intersections)s')" % sqlValues
  			
  			app.logger.debug('cartodb insert sql')
  			app.logger.debug(sqlStr)
@@ -167,12 +168,14 @@ def surveySubmit():
 				if question['answer'].get('path'):
 				
 					dictOfTextResponses = theResponse.prepResponsesForDB( submissionData.get('responses') )
+
 					geojson = theResponse.prepPathForGeoJSON(question['answer'].get('path'))
 					survey = models.SurveyResponse()
 					survey.survey = submissionData.get('survey')
 					survey.surveyId = submissionData.get('surveyId')
-					survey.type_of_cyclist = "Bold"
 					survey.geo = geojson
+					survey.email = session.get('email','')
+					survey.type_of_cyclist = session.get('type_of_cyclist','')
 					survey.responses = dictOfTextResponses
 					survey.save()
 
@@ -181,6 +184,10 @@ def surveySubmit():
 
 					#create sql
 					cdb = CartoDBConnector()
+
+					dictOfTextResponses['survey'] = submissionData.get('survey','')
+					dictOfTextResponses['survey_id'] = submissionData.get('surveyId')
+					dictOfTextResponses['type_of_cyclist'] = session.get('type_of_cyclist','')
 
 					cartodbValue = dictOfTextResponses
 					cartodbValue['path'] = cartodbPath

@@ -7,7 +7,6 @@ var polyline;
 
 var markers = new collections.Markers;
 
-
 function initialize() {
 	var myOptions = {
 	  center: new google.maps.LatLng(52.532408,13.41152),
