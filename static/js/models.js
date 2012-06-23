@@ -74,6 +74,8 @@ models.GeoMultipleLineString = models.Question.extend({
 		
 		google.maps.event.clearListeners(map, 'click');
 
+		jQuery("a#resetMarkers").off('click').hide();
+
 		var directions = this.get('directions');
 		this.set('answer',{
 			  text : directions.summary

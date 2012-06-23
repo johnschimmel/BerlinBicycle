@@ -26,7 +26,7 @@ function initialize() {
 	    	, latLng : e.latLng
 	    });
     	markers.add(tmpMarker);
-    	
+    	jQuery("a#resetMarkers").show();
     });
 
     //calcRoute();
@@ -35,3 +35,18 @@ function initialize() {
     });
     
 }
+
+jQuery("a#resetMarkers").on('click',function() {
+
+	_.each(markers.models, function(m){
+		var marker = m.get('marker');
+		marker.setVisible(false);
+	});
+	polyline.setVisible(false);
+
+	markers = new collections.Markers;
+	polyline = new google.maps.Polyline({
+    	map : map
+    });
+
+});
