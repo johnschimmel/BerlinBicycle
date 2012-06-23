@@ -2,8 +2,8 @@
 
 	  "status" : "OK"
 	, "survey": {
-		  "name" : "Test Survey"
-		, "id" : "test_survey"
+		  "name" : "Dynamic Connections"
+		, "id" : "dynamicconnections"
 		, "questions" : [
 				{
 				  "id" : "choose_a_road"
@@ -12,14 +12,14 @@
 						, "de" : "Bitte wählen Sie eine Straße aus, auf der Sie regelmäßig Fahrrad fahren."
 					}
 				, "description" : {
-						  "en" : "Find a street and click on the map to make a route."
+						  "en" : "Click twice or more on the map to select a street, this will create a start and end point."
 						, "de" : "Find a street and click on the map to make a route."
 				}
 				, "position" : 1
 				, "response_type" : "GeoMultipleLineString"
 				, "minMarkers" : 2
 				, "answers" : [{
-						  "text" : {"en":"Select a point/street on the map","de":"german - select a point on the map."}
+						  "text" : {"en":"","de":""}
 						, "action" : { "goto" : "next" }
 
 					}]
