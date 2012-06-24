@@ -20,14 +20,16 @@
 
 				<div id="thankyou" class="hide" style="display:none;">
 					<h2>{{content.get('survey_thank_you')|safe}}</h2>
-					<iframe width="420" height="315" src="http://www.youtube.com/embed/Vdto2MAsU0s" frameborder="0"></iframe>
+					
 				</div>
 			</div>
 		
 			<div id="map">
-				<div id="canvas" style="height:350px;"></div>
+				<div id="canvas"></div>
 				<div id="resetButtonContainer">
-					<a href="#" id="resetMarkers" style="display:none;">reset map - clear markers</a>
+					<p>
+						<a href="#" id="resetMarkers" style="display:none;">{{ content.get('survey_reset_map') }}</a>
+					</p>
 				</div>
 				<div id="answer_container"></div>
 			</div>
@@ -85,9 +87,8 @@
 
 <script type="text/template" id="answer_container_template">
 <div class="answer" id="{{id}}">
-	<span class="answer_question_label">{{questionLabel}}</span><br>
+	<span class="answer_question_label">{{questionLabel}}</span>
 	<span class="answer_user_response">{{answer.text}}</span>
-	<br><br>
 </div>
 </script>
 

@@ -11,7 +11,7 @@
 
   <meta name="viewport" content="width=device-width">
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=0.9">
   {% block styles %}{% endblock %}
 
   
@@ -30,8 +30,8 @@
 
           </div><!-- /#navigation -->
           <div id="flags">
-            <a href="/language/de" alt="Deutsch" title="Deutsch"><img src="/static/img/de.png"></a>
-            <a href="/language/en" alt="English" title="English"><img src="/static/img/au.png"></a>
+            <a href="/language/de" alt="Deutsch" title="Deutsch">Deutsch</a>
+            <a href="/language/en" alt="English" title="English">English</a>
           </div>
         </div><!-- /#head-wrap -->
     </div><!-- /#header -->
