@@ -6,7 +6,7 @@ jQuery.noConflict();
 
 function form_labelize(){  
 	jQuery(".labelize input:text, .labelize input[type=email]").clearingInput();
-	console.log("okokok");
+	
 }   
 
 jQuery(document).ready(function() {
