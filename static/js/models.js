@@ -44,8 +44,10 @@ models.MultipleChoiceQuestion = models.Question.extend({
 	}
 
 	, setAnswer : function(answer) {
-		//console.log("inside setAnswer for multiplechoice");
-		this.set('answer',{text:answer});
+		
+		this.set('answer',{text:answer.value});
+		this.set('answerLocalized',answer.localizedValue);
+
 		var answerView = new views.answer_container({
 			el : '#'+this.get('id'),
 			parent : '#answer_container',
@@ -53,7 +55,12 @@ models.MultipleChoiceQuestion = models.Question.extend({
 		});
 
 		this.set("answerView", answerView);
-		return this.get('answer');
+		
+		console.log('answer localized');
+		
+		console.log(this.get('answerLocalized'));
+
+		return this.get('answerLocalized');
 
 	}
 
@@ -77,11 +84,17 @@ models.GeoMultipleLineString = models.Question.extend({
 		jQuery("a#resetMarkers").off('click').hide();
 
 		var directions = this.get('directions');
+		
 		this.set('answer',{
 			  text : directions.summary
 			, path : directions.overview_path
 			, polyline : directions.overview_polyline
 		});
+
+		this.set('answerLocalized',directions.summary);
+		
+		console.log("inside setAnswer");
+		console.log(this.get('answerLocalized'));
 
 		var answerView = new views.answer_container({
 			el : '#'+this.get('id'),
@@ -90,7 +103,7 @@ models.GeoMultipleLineString = models.Question.extend({
 		});
 
 		this.set("answerView", answerView);
-		return this.get('answer');
+		return this.get('answerLocalized');
 
 	}
 });

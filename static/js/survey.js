@@ -44,7 +44,12 @@ var surveyApi = function() {
 			var question = this.getCurrentQuestion();
 
 			if (question.get('response_type') == "multiplechoice") {
-				var selectedAnswer = jQuery('input.question_choice_radio:checked').val();
+				var selectedAnswer = {
+					value : jQuery('input.question_choice_radio:checked').val()
+					, localizedValue : jQuery('input.question_choice_radio:checked').data('localizedvalue')
+				}
+
+
 				question.setAnswer(selectedAnswer);
 
 				var action = jQuery('input.question_choice_radio:checked').data('action');

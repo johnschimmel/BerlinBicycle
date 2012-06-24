@@ -120,13 +120,15 @@ var views = (function(){
 				  interpolate : /\{\{(.+?)\}\}/g
 				};
 
-				var template = _.template(jQuery('#answer_container_template').html())
+				
+				var template = _.template(jQuery('#answer_container_template').html());
+
 				var templateData = {
 					id:"answer_"+this.model.get('id'),
 					questionLabel:this.model.getLocalized('question'), 
-					answer:this.model.get('answer')
+					answer:{text:this.model.get('answerLocalized')}
 				};
-
+				
 				jQuery(this.options.parent).append( template(templateData) );
 			}
 		}),
