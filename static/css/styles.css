@@ -73,6 +73,7 @@ h3 { font-family: "ff-tisa-web-pro", Georgia, Times, serif; font-size: 1.2em; fo
 #content.landing .center  { margin: 0 auto; width: 130px; }
 #choices { margin-top: 20px; font-weight: bold; font-family: "futura-pt", Helvetica, Arial, sans-serif; }
 #choices .question_choice.radio { display: block; margin: 10px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e6e6e6; margin: 20px auto; padding: 15px; }
+/*#choices .question_choice_radio { display: block; margin: 10px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e6e6e6; margin: 20px auto; padding: 15px; }*/
 
 /* Previous Answers */
 #map #answer_container .answer_question_label { color: #777; font-size: 0.9em; line-height: 1.35em; display: block; }

@@ -73,10 +73,10 @@
 </script>
 
 <script type="text/template" id="question_choice_template">
-<label class="question_choice radio">
-	<input type="radio" class="question_choice_radio" name="question_choice" value="{{value}}" data-action="{{action.goto}}">
-	{{choice}}
-</label>
+
+<input type="radio" class="question_choice_radio" name="question_choice" id="{{value}}" value="{{value}}" data-action="{{action.goto}}" />
+	
+<label for="{{value}}">{{choice}}</label>
 </script>
 
 <script type="text/template" id="geoselection_container_template">

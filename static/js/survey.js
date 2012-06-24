@@ -265,13 +265,13 @@ var surveyApi = function() {
 				, dataType : 'JSON'
 				, data : {responsejson:JSON.stringify(this.responses)}
 				, success : function(response) {
-					console.log("success response");
-					console.log(response);
+					//console.log("success response");
+					//console.log(response);
 
 				}
 				, error : function(error) {
-					console.log("error");
-					console.log(error);
+					//console.log("error");
+					//console.log(error);
 				}
 			});
 			

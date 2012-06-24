@@ -1,17 +1,19 @@
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!DOCTYPE html>
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="icon" href="" type="image/png" />
+
   <title>{% if content %}{{content.get('page_title')}}{% endif %}</title>
   <meta name="description" content="">
 
   <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="http://use.typekit.com/rjd6zeg.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=0.9">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=0.91">
   {% block styles %}{% endblock %}
 
   
