@@ -164,6 +164,9 @@ def survey():
 		session['email'] = request.form.get('email','')
 		session['type_of_cyclist'] = request.form.get('biker','')
 		app.logger.debug(session)
+	
+	if 'language' not in session:
+		session['language'] = 'de'
 
 	contentObj = Content()
 	
@@ -274,7 +277,9 @@ def admin_content_edit(textid):
 @app.route('/admin')
 @fresh_login_required
 def admin():
-
+	if 'language' not in session:
+		session['language'] = 'de'
+		
 	contentObj = Content()
 	mainDoc = contentObj.getMainDocument()
 
