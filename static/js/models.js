@@ -56,10 +56,18 @@ models.MultipleChoiceQuestion = models.Question.extend({
 
 		this.set("answerView", answerView);
 		
-		console.log('answer localized');
+		if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)) {
 		
-		console.log(this.get('answerLocalized'));
-
+			jQuery('label[for]').on('click',function (e) {
+				var el = jQuery(this).attr('for');
+				if (jQuery('#' + el + '[type=radio], #' + el + '[type=checkbox]').attr('selected', !jQuery('#' + el).attr('selected'))) {
+					return;
+				} else {
+					jQuery('#' + el)[0].focus();
+					
+				}
+			});
+		}
 		return this.get('answerLocalized');
 
 	}

@@ -82,6 +82,21 @@ var views = (function(){
 					, action : this.model.get('action')
 				};
 	            jQuery(this.el).append( template(templateData) );
+
+	            if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i)) {
+		
+					jQuery('label[for]').click(function () {
+						var el = jQuery(this).attr('for');
+						if (jQuery('#' + el + '[type=radio], #' + el + '[type=checkbox]').attr('selected', !jQuery('#' + el).attr('selected'))) {
+							return;
+						} else {
+							jQuery('#' + el)[0].focus();
+							
+						}
+					});
+				} 
+
+				
 	        }
 	        , radioSelected : function(e) {
 	        	localViews = survey.getLocalViews();
