@@ -12,8 +12,8 @@
 						, "de" : "Bitte wählen Sie eine Straße aus, auf der Sie regelmäßig Fahrrad fahren."
 					}
 				, "description" : {
-						  "en" : "Click twice or more on the map to select a street, this will create a start and end point."
-						, "de" : "Find a street and click on the map to make a route."
+						  "en" : "Find a street and click on the map to mark the start and end points. You may reset the markers with link below the map if you wish to restart your selection."
+						, "de" : "Find a street and click on the map to mark the start and end points. You may reset the markers with link below the map if you wish to restart your selection."
 				}
 				, "position" : 1
 				, "response_type" : "GeoMultipleLineString"
