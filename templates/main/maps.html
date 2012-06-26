@@ -44,8 +44,21 @@
 	cartoQueries.cycling_friendly = {
 		label : "Cycle friendly streets",
 		query : "SELECT * FROM dynamicconnections_live",
-		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:green}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
+		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:#00bb00}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
 	};
+
+	cartoQueries.cycling_friendly_yes = {
+		label : "Cycle friendly streets - Yes",
+		query : "SELECT * FROM dynamicconnections_live where is_the_gradient_amenable_to_cycling='yes'",
+		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:#00bb00}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
+	};
+
+	cartoQueries.cycling_friendly_no = {
+		label : "Cycle friendly streets - No",
+		query : "SELECT * FROM dynamicconnections_live where is_the_gradient_amenable_to_cycling='no'",
+		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:#00bb00}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
+	};
+
 
 	cartoQueries.good_access = {
 		label : "Good Access",
@@ -55,7 +68,7 @@
 
 	cartoQueries.safe_intersections = {
 		label : "Safe Intersections",
-		query : "SELECT * FROM dynamicconnections_live where street_offers_priority_through_intersections='yes'",
+		query : "SELECT * FROM dynamicconnections_live where street_offers_priority_through_intersections='safe'",
 		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
 	};
 	
@@ -64,6 +77,12 @@
 		label : "Happy streets",
 		query : "SELECT * FROM dynamicconnections_live where how_do_you_feel='happy'",
 		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
+	};
+
+	cartoQueries.stressed_streets = {
+		label : "Stressed streets",
+		query : "SELECT * FROM dynamicconnections_live where how_do_you_feel='stressed'",
+		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#cc0000;}"
 	};
 	
 	var cartodb_gmapsv3, map;
@@ -80,9 +99,9 @@
 		  map: map,
 		  user_name:'johnschimmel',
 		  table_name: 'dynamicconnections_live',
-		  query: cartoQueries.good_access.query,
+		  query: cartoQueries.cycling_friendly.query,
 		  layer_order: "top",
-		  tile_style: cartoQueries.good_access.style,
+		  tile_style: cartoQueries.cycling_friendly.style,
 		  interactivity: "cartodb_id",
 		  featureClick: function(ev, latlng, pos, data) {},
 		  featureOver: function(ev, latlng, pos, data) {},
@@ -90,9 +109,20 @@
 		  auto_bound: true
 		});
 
+		jQuery.each(cartoQueries, function(id, obj){
+			var tmpOpt = "<option value='"+id+"'>"+obj.label+"</option>";
+			jQuery('select#map_selection').append(tmpOpt);
+		})
+
+		jQuery('select#map_selection').on('change', function(e){
+			displayQuery(jQuery(this).val());
+		});
+
 	});
 
-	var displayQuery = function(cartoQueryObj) {
+	var displayQuery = function(cartoQueryId) {
+		cartoQueryObj = cartoQueries[cartoQueryId];
+
 		cartodb_gmapsv3.setQuery(cartoQueryObj.query);
 		cartodb_gmapsv3.setStyle(cartoQueryObj.style);
 	}
