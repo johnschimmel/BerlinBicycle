@@ -37,7 +37,48 @@
 
 
 <script type="text/javascript">
-    var overlay, cartodb_imagemaptype,
+   
+
+	var cartoQueries = {};
+
+	cartoQueries.cycling_friendly_yes = {
+		label : "Cycle friendly streets",
+		query : "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='yes'"
+	};
+	cartoQueries.cycling_friendly_no = "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='no'";
+	cartoQueries.good_access = "SELECT * FROM dynamicconnections where link_to_destinations='yes'";
+	cartoQueries.safe_intersections = "SELECT * FROM dynamicconnections where street_offers_priority_through_intersections='yes'";
+	cartoQueries.happy_streets = "SELECT * FROM dynamicconnections where how_do_you_feel='happy'";
+
+
+	var cartodb_gmapsv3, map;
+	jQuery(document).ready(function(){
+		map = new google.maps.Map(document.getElementById('map'), {
+		  center: new google.maps.LatLng(52.532408, 13.41152),
+		  zoom: 3,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP,
+		  mapTypeControl: false
+		});
+
+		cartodb_gmapsv3 = new CartoDBLayer({
+		  map: map,
+		  user_name:'johnschimmel',
+		  table_name: 'dynamicconnections_live',
+		  query: "SELECT * FROM dynamicconnections_live",
+		  layer_order: "top",
+		  tile_style: "#dynamicconnections_live{line-color:red}",
+		  interactivity: "cartodb_id, magnitude",
+		  featureClick: function(ev, latlng, pos, data) {alert(data.cartodb_id)},
+		  featureOver: function(ev, latlng, pos, data) {},
+		  featureOut: function() {},
+		  auto_bound: true
+		});
+
+	})
+
+
+/*
+ var overlay, cartodb_imagemaptype,
       carto_map = null,
   cat = 'II',
       lat = 52.532408,
@@ -91,16 +132,8 @@
 	    });
     });
 
-	var cartoQueries = {};
-
-	cartoQueries.cycling_friendly_yes = "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='yes'";
-	cartoQueries.cycling_friendly_no = "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='no'";
-	cartoQueries.good_access = "SELECT * FROM dynamicconnections where link_to_destinations='yes'";
-	cartoQueries.safe_intersections = "SELECT * FROM dynamicconnections where street_offers_priority_through_intersections='yes'";
-	cartoQueries.happy_streets = "SELECT * FROM dynamicconnections where how_do_you_feel='happy'";
-
-
-
+*/
 </script>
+
 
 {% endblock %}
