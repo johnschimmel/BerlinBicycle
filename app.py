@@ -274,7 +274,7 @@ def admin_content_edit(textid):
 		return redirect('/admin')
 
 @app.route('/admin')
-@fresh_login_required
+@login_required
 def admin():
 	if 'language' not in session:
 		session['language'] = 'de'
