@@ -227,7 +227,7 @@ var surveyApi = function() {
 			jQuery(localViews.q_title.$el).remove();
 
 			//display thank you end
-			jQuery("#thankyou").show();
+			//jQuery("#thankyou").show();
 
 			//build final answer response object
 			var qs = this.getQuestions();
@@ -270,8 +270,7 @@ var surveyApi = function() {
 				, dataType : 'JSON'
 				, data : {responsejson:JSON.stringify(this.responses)}
 				, success : function(response) {
-					//console.log("success response");
-					//console.log(response);
+					window.location = "/maps";
 
 				}
 				, error : function(error) {

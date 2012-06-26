@@ -12,7 +12,13 @@
 	
 	<div class="content-wrap" id="mapFrameContainer">
 		<div id="text-block" >
-			<h2>{{content.get('map_page_title')|safe}}</h2>
+			<h2>
+				{% if surveyGuest %}
+				{{content.get('survey_thank_you')|safe}}
+				{% else %}
+				{{content.get('map_page_title')|safe}}
+				{% endif %}
+			</h2>
 			<p>{{content.get('map_page_description')|safe}}</p>
 			<select id="map_selection"></select>
 		</div>

@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import os
+import re
 
 from flask import Flask, session, request, url_for, escape, render_template, json, jsonify, flash, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -112,11 +113,13 @@ def index():
 	if 'language' not in session:
 		session['language'] = 'de'
 
+	session['email'] = None
+	session['type_of_cyclist'] = None
+
 	contentObj = Content()
 	templateData = {
 		'content' : contentObj.getAllText(language=session['language'])
 	}
-
 
 	return render_template("/main/index.html", **templateData)
 
@@ -182,13 +185,26 @@ def mapsMain():
 
 	if 'language' not in session:
 		session['language'] = 'de'
+	
 
+		
 	contentObj = Content()
 	
 	templateData = {
-		'content' : contentObj.getAllText(language=session['language'])
+		'content' : contentObj.getAllText(language=session['language']),
 		
 	}
+
+	#check for user from survey
+	if request.referrer:
+		rg = re.compile('.*?(\\/survey)',re.IGNORECASE|re.DOTALL)
+		m = rg.search(request.referrer)
+		if m and m.group(1) == '/survey':
+			templateData['surveyGuest'] = True
+
+	else:
+		surveyGuest = False
+
 	return render_template('/main/maps.html', **templateData);
 
 	
