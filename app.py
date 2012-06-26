@@ -279,14 +279,15 @@ def admin_content_edit(textid):
 def admin():
 	if 'language' not in session:
 		session['language'] = 'de'
-		
+
 	contentObj = Content()
 	mainDoc = contentObj.getMainDocument()
 
 	#create content
 	templateData = {
 		'textids' : mainDoc.content.keys(),
-		'texts' : mainDoc.content
+		'texts' : mainDoc.content,
+		'content':mainDoc.content
 	}
 	app.logger.debug(templateData);
 
