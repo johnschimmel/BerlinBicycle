@@ -37,46 +37,46 @@
 
 	cartoQueries.cycling_friendly = {
 		label : "{{content.get('map_page_title')|safe}}.",
-		query : "SELECT * FROM dynamicconnections_live",
-		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:#00bb00}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
+		query : "SELECT * FROM dynamicconnections_bmwguggenheimlab",
+		style : "#dynamicconnections_bmwguggenheimlab {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:#00bb00}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
 	};
 
 	cartoQueries.cycling_friendly_yes = {
 		label : "{{content.get('map_cycle_friendly')}}",
-		query : "SELECT * FROM dynamicconnections_live where is_the_gradient_amenable_to_cycling='yes'",
-		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:#00bb00}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
+		query : "SELECT * FROM dynamicconnections_bmwguggenheimlab where is_the_gradient_amenable_to_cycling='yes'",
+		style : "#dynamicconnections_bmwguggenheimlab {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:#00bb00}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
 	};
 
 	cartoQueries.cycling_friendly_no = {
 		label : "{{content.get('map_cycle_friendly_no')}}",
-		query : "SELECT * FROM dynamicconnections_live where is_the_gradient_amenable_to_cycling='no'",
-		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:#00bb00}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
+		query : "SELECT * FROM dynamicconnections_bmwguggenheimlab where is_the_gradient_amenable_to_cycling='no'",
+		style : "#dynamicconnections_bmwguggenheimlab {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:#00bb00}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
 	};
 
 
 	cartoQueries.good_access = {
 		label : "{{content.get('map_good_access')}}",
-		query : "SELECT * FROM dynamicconnections_live where link_to_destinations='yes'",
-		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
+		query : "SELECT * FROM dynamicconnections_bmwguggenheimlab where link_to_destinations='yes'",
+		style : "#dynamicconnections_bmwguggenheimlab {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
 	};
 
 	cartoQueries.safe_intersections = {
 		label : "{{content.get('map_safe_intersections')|safe}}",
-		query : "SELECT * FROM dynamicconnections_live where street_offers_priority_through_intersections='safe'",
-		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
+		query : "SELECT * FROM dynamicconnections_bmwguggenheimlab where street_offers_priority_through_intersections='safe'",
+		style : "#dynamicconnections_bmwguggenheimlab {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
 	};
 	
 
 	cartoQueries.happy_streets = {
 		label : "{{content.get('map_happy_streets')|safe}}",
-		query : "SELECT * FROM dynamicconnections_live where how_do_you_feel='happy'",
-		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
+		query : "SELECT * FROM dynamicconnections_bmwguggenheimlab where how_do_you_feel='happy'",
+		style : "#dynamicconnections_bmwguggenheimlab {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
 	};
 
 	cartoQueries.stressed_streets = {
 		label : "{{content.get('map_stressful_streets')|safe}}",
-		query : "SELECT * FROM dynamicconnections_live where how_do_you_feel='stressed'",
-		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#cc0000;}"
+		query : "SELECT * FROM dynamicconnections_bmwguggenheimlab where how_do_you_feel='stressed'",
+		style : "#dynamicconnections_bmwguggenheimlab {line-width:5;line-opacity:0.35;line-color:#cc0000;}"
 	};
 	
 	var cartodb_gmapsv3, map;
@@ -92,7 +92,7 @@
 		cartodb_gmapsv3 = new CartoDBLayer({
 		  map: map,
 		  user_name:'johnschimmel',
-		  table_name: 'dynamicconnections_live',
+		  table_name: 'dynamicconnections_bmwguggenheimlab',
 		  query: cartoQueries.cycling_friendly.query,
 		  layer_order: "top",
 		  tile_style: cartoQueries.cycling_friendly.style,

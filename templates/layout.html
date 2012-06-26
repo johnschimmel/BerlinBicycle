@@ -11,7 +11,8 @@
   <script type="text/javascript" src="http://use.typekit.com/rjd6zeg.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='icon.png') }}">
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='img/icon.png') }}" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=1.0.5">
   {% block styles %}{% endblock %}
 
