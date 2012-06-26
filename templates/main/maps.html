@@ -1,8 +1,12 @@
 {% extends "/layout.html" %}
 
-{% block styles %}{% endblock %}
+{% block styles %}
+<link href="/static/css/cartodb-gmapsv3.css" rel="stylesheet" type="text/css" />
+<link  href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+{% endblock %}
 
 {% block body %}
+
 <div id="content" class="cf interior">
 
 	
@@ -27,6 +31,9 @@
 
 {% block scripts %}
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=drawing" type="text/javascript"></script>
+<script type="text/javascript" src="/static/js/libs/wax.g.min-6.2.0-touched.js"></script>
+<script type="text/javascript" src="/static/js/libs/cartodb-gmapsv3-min.js"></script>
+
 
 
 <script type="text/javascript">
@@ -45,9 +52,10 @@
 
     var cartodb_layer = {
       getTileUrl: function(coord, zoom) {
-        var baseURL = "https://johnschimmel.cartodb.com/tiles/dynamicconnections/"+zoom+"/"+coord.x+"/"+coord.y+".png?sql=";
-        baseURL += "SELECT *FROM dynamicconnections where is_the_gradient_amenable_to_cycling='yes'&style=";
-        baseURL += encodeURI("#dynamicconnections {line-color:#00FFAA;line-width:25;line-opacity:0.35;}");
+        var baseURL = "https://johnschimmel.cartodb.com/tiles/dynamicconnections_live/"+zoom+"/"+coord.x+"/"+coord.y+".png";
+        baseURL += "&sql=SELECT * FROM dynamicconnections_live";
+        baseURL += "&style=%23dynamicconnections_live { line-color:%23FF6600;line-width:5;line-opacity:0.34;}";
+        //console.log(baseURL);
         return baseURL;
       },
         tileSize: new google.maps.Size(256, 256)
@@ -83,9 +91,13 @@
 	    });
     });
 
+	var cartoQueries = {};
 
-
-
+	cartoQueries.cycling_friendly_yes = "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='yes'";
+	cartoQueries.cycling_friendly_no = "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='no'";
+	cartoQueries.good_access = "SELECT * FROM dynamicconnections where link_to_destinations='yes'";
+	cartoQueries.safe_intersections = "SELECT * FROM dynamicconnections where street_offers_priority_through_intersections='yes'";
+	cartoQueries.happy_streets = "SELECT * FROM dynamicconnections where how_do_you_feel='happy'";
 
 
 

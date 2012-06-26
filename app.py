@@ -42,7 +42,7 @@ class CartoDBConnector(object):
  				"type_of_cyclist" : response_data.get('type_of_cyclist')
  			}
 
- 			sqlStr = "INSERT INTO dynamicconnections \
+ 			sqlStr = "INSERT INTO dynamicconnections_live \
  				(survey, surveyid, type_of_cyclist, the_geom, choose_a_road, how_do_you_feel, link_to_destinations,is_the_gradient_amenable_to_cycling,street_offers_priority_through_intersections) \
  				values \
  				('%(survey)s', '%(surveyid)s', '%(type_of_cyclist)s', ST_GeomFromText('MULTILINESTRING((%(path)s))',4326), '%(choose_a_road)s', '%(how_do_you_feel)s', '%(link_to_destinations)s','%(is_the_gradient_amenable_to_cycling)s', '%(street_offers_priority_through_intersections)s')" % sqlValues
