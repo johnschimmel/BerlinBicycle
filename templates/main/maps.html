@@ -122,9 +122,13 @@
 
 	var displayQuery = function(cartoQueryId) {
 		cartoQueryObj = cartoQueries[cartoQueryId];
-
-		cartodb_gmapsv3.setQuery(cartoQueryObj.query);
 		cartodb_gmapsv3.setStyle(cartoQueryObj.style);
+		cartodb_gmapsv3.setQuery(cartoQueryObj.query);
+		
+		//weird ipad setzoom to fix layers that do not show when selection is changed.
+		prevZoom = map.getZoom();
+		map.setZoom(prevZoom);
+		setTimeout(function(){map.setZoom(prevZoom);}, 1000);
 	}
 
 
