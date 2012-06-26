@@ -41,17 +41,33 @@
 
 	var cartoQueries = {};
 
-	cartoQueries.cycling_friendly_yes = {
+	cartoQueries.cycling_friendly = {
 		label : "Cycle friendly streets",
-		query : "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='yes'"
+		query : "SELECT * FROM dynamicconnections_live",
+		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:orange;[is_the_gradient_amenable_to_cycling='yes']{line-color:green}[is_the_gradient_amenable_to_cycling='no']{line-color:#f00}}"
 	};
-	cartoQueries.cycling_friendly_no = "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='no'";
-	cartoQueries.good_access = "SELECT * FROM dynamicconnections where link_to_destinations='yes'";
-	cartoQueries.safe_intersections = "SELECT * FROM dynamicconnections where street_offers_priority_through_intersections='yes'";
-	cartoQueries.happy_streets = "SELECT * FROM dynamicconnections where how_do_you_feel='happy'";
 
+	cartoQueries.good_access = {
+		label : "Good Access",
+		query : "SELECT * FROM dynamicconnections_live where link_to_destinations='yes'",
+		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
+	};
 
+	cartoQueries.safe_intersections = {
+		label : "Safe Intersections",
+		query : "SELECT * FROM dynamicconnections_live where street_offers_priority_through_intersections='yes'",
+		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
+	};
+	
+
+	cartoQueries.happy_streets = {
+		label : "Happy streets",
+		query : "SELECT * FROM dynamicconnections_live where how_do_you_feel='happy'",
+		style : "#dynamicconnections_live {line-width:5;line-opacity:0.35;line-color:#00bb00;}"
+	};
+	
 	var cartodb_gmapsv3, map;
+
 	jQuery(document).ready(function(){
 		map = new google.maps.Map(document.getElementById('map'), {
 		  center: new google.maps.LatLng(52.532408, 13.41152),
@@ -64,75 +80,25 @@
 		  map: map,
 		  user_name:'johnschimmel',
 		  table_name: 'dynamicconnections_live',
-		  query: "SELECT * FROM dynamicconnections_live",
+		  query: cartoQueries.good_access.query,
 		  layer_order: "top",
-		  tile_style: "#dynamicconnections_live{line-color:red}",
-		  interactivity: "cartodb_id, magnitude",
-		  featureClick: function(ev, latlng, pos, data) {alert(data.cartodb_id)},
+		  tile_style: cartoQueries.good_access.style,
+		  interactivity: "cartodb_id",
+		  featureClick: function(ev, latlng, pos, data) {},
 		  featureOver: function(ev, latlng, pos, data) {},
 		  featureOut: function() {},
 		  auto_bound: true
 		});
 
-	})
+	});
+
+	var displayQuery = function(cartoQueryObj) {
+		cartodb_gmapsv3.setQuery(cartoQueryObj.query);
+		cartodb_gmapsv3.setStyle(cartoQueryObj.style);
+	}
 
 
-/*
- var overlay, cartodb_imagemaptype,
-      carto_map = null,
-  cat = 'II',
-      lat = 52.532408,
-      lng = 13.41152;
 
-    var resetLayer = function(){
-      // Add the cartodb tiles
-      cartodb_imagemaptype = new google.maps.ImageMapType(cartodb_layer);
-      carto_map.overlayMapTypes.insertAt(0, cartodb_imagemaptype);
-      carto_map.overlayMapTypes.pop(1);
-    }
-
-    var cartodb_layer = {
-      getTileUrl: function(coord, zoom) {
-        var baseURL = "https://johnschimmel.cartodb.com/tiles/dynamicconnections_live/"+zoom+"/"+coord.x+"/"+coord.y+".png";
-        baseURL += "&sql=SELECT * FROM dynamicconnections_live";
-        baseURL += "&style=%23dynamicconnections_live { line-color:%23FF6600;line-width:5;line-opacity:0.34;}";
-        //console.log(baseURL);
-        return baseURL;
-      },
-        tileSize: new google.maps.Size(256, 256)
-    }
-
-    jQuery(document).ready(function(){
-
-        //Basic
-          var cartodbMapOptions = {
-            zoom: 12,
-            center: new google.maps.LatLng( lat, lng ),
-            disableDefaultUI: true,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          }
-
-          // Init the map
-          carto_map = new google.maps.Map(document.getElementById("map"),cartodbMapOptions);
-
-        map_style = [ { stylers: [ { saturation: -65 }, { gamma: 1.52 } ] }, { featureType: "administrative", stylers: [ { saturation: -95 },{ gamma: 2.26 } ] }, { featureType: "water", elementType: "labels", stylers: [ { visibility: "off" } ] }, { featureType: "administrative.locality", stylers: [ { visibility: 'on' } ] }, { featureType: "road", stylers: [ { visibility: "simplified" }, { saturation: -99 }, { gamma: 2.22 } ] }, { featureType: "poi", elementType: "labels", stylers: [ { visibility: "off" } ] }, { featureType: "road.arterial", stylers: [ { visibility: 'on' } ] }, { featureType: "road.local", elementType: "labels", stylers: [ { visibility: 'on' } ] }, { featureType: "transit", stylers: [ { visibility: 'off' } ] }, { featureType: "road", elementType: "labels", stylers: [ { visibility: 'on' } ] },{ featureType: "poi", stylers: [ { saturation: -55 } ] } ];
-
-        carto_map.setOptions({styles: map_style});
-
-          // Add the cartodb tiles
-          cartodb_imagemaptype = new google.maps.ImageMapType(cartodb_layer);
-          carto_map.overlayMapTypes.insertAt(0, cartodb_imagemaptype);
-
-	    jQuery('.buttons button').click(function(){
-	      jQuery(this).focus();
-	      cat = jQuery(this).val();
-	      jQuery(this).closest('div').find('button.selected').removeClass('selected');
-	      jQuery(this).addClass('selected');
-	      resetLayer();
-	    });
-    });
-
-*/
 </script>
 
 
