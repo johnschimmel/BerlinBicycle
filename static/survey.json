@@ -13,7 +13,7 @@
 					}
 				, "description" : {
 						  "en" : "Find a street and click on the map to mark the start and end points. You may reset the markers with link below the map if you wish to restart your selection."
-						, "de" : "Find a street and click on the map to mark the start and end points. You may reset the markers with link below the map if you wish to restart your selection."
+						, "de" : "Eine Straße wählen und auf die Karte klicken, um Anfangs- und Endpunkte zu markieren. Für neue Wahl Markierungen mit dem Link unter der Karte löschen."
 				}
 				, "position" : 1
 				, "response_type" : "GeoMultipleLineString"
