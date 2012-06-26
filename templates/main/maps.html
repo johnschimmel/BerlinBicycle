@@ -1,0 +1,18 @@
+
+<div id="mapFrameContainer">
+<iframe id="mapFrame" width="640px" height="480px" src=""></iframe>
+</div>
+
+
+<script>
+var cartoURL = "https://johnschimmel.cartodb.com/tables/dynamicconnections/embed_map?sql=";
+
+var cartoQueries = {};
+
+cartoQueries.cycling_friendly_yes = "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='yes'";
+cartoQueries.cycling_friendly_no = "SELECT * FROM dynamicconnections where is_the_gradient_amenable_to_cycling='no'";
+cartoQueries.good_access = "SELECT * FROM dynamicconnections where link_to_destinations='yes'";
+cartoQueries.safe_intersections = "SELECT * FROM dynamicconnections where street_offers_priority_through_intersections='yes'";
+cartoQueries.happy_streets = "SELECT * FROM dynamicconnections where how_do_you_feel='happy'";
+
+</script>

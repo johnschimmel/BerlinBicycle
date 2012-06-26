@@ -296,6 +296,7 @@ def admin():
 
 
 @app.route('/api/admin/content/new', methods=['POST'])
+@login_required
 def api_content_new():
 
 	formData = request.form
@@ -318,6 +319,7 @@ def api_content_new():
 	return redirect('/admin')
 
 @app.route('/api/admin/content/edit/<textid>', methods=['POST'])
+@login_required
 def api_content_edit(textid):
 	formData = request.form
 	contentObj = Content()
@@ -346,7 +348,7 @@ def api_content_edit(textid):
 def secret():
     return render_template("/auth/secret.html")
 
-@app.route("/theregister", methods=["GET","POST"])
+@app.route("/theregisterpage", methods=["GET","POST"])
 def register():
 	registerForm = RegisterForm(csrf_enabled=True)
 
