@@ -176,6 +176,21 @@ def survey():
 	}
 	session['survey_user'] = True
 	return render_template('/main/survey.html', **templateData);
+
+@app.route('/maps')
+def mapsMain():
+
+	if 'language' not in session:
+		session['language'] = 'de'
+
+	contentObj = Content()
+	
+	templateData = {
+		'content' : contentObj.getAllText(language=session['language'])
+		
+	}
+	return render_template('/main/maps.html', **templateData);
+
 	
 @app.route('/api/survey/save', methods=['GET','POST'])
 def surveySubmit():
@@ -228,23 +243,7 @@ def surveySubmit():
 
 		return "hmm, not sure if that went through"
 
-# @app.route('/test')
-# def dbtest():
-# 	cdb = CartoDBConnector()
-# 	result = cdb.test()
-# 	print result
-# 	return "ok"
 
-# @app.route('/submit',  methods=['POST'])
-# def form_submit_test():
-# 	tForm = TestForm(csrf_enabled=True)
-	
-# 	print request.form
-
-# 	if request.form and tForm.validate():
-# 		return jsonify(request.form)
-# 	else:
-# 		return "Sorry"
 
 
 @app.route('/dbtest')
@@ -402,7 +401,13 @@ def reauth():
         confirm_login()
         flash(u"Reauthenticated.")
         return redirect(request.args.get("next") or url_for("index"))
-    return render_template("/auth/reauth.html")
+
+    contentObj = Content()
+
+    templateData = {
+		'content' : contentObj.getAllText(language=session['language'])
+	}
+    return render_template("/auth/reauth.html", **templateData)
 
 
 @app.route("/logout")

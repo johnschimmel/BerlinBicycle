@@ -21,7 +21,10 @@
 <div id="wrap">
     <div id="header" class="cf">
         <div class="content-wrap">
-          <div id="logo"><img src="/static/img/lab_dynamic_logo_{{session.get('language')}}.png" alt= "{{content.get('navbar_logo_alt')}}" /></div><!-- /#logo -->
+          <div id="logo">
+            <a href="/"><img src="/static/img/lab_dynamic_logo_{{session.get('language')}}.png" alt= "{{content.get('navbar_logo_alt')}}" /></a>
+          </div><!-- /#logo -->
+          
           <div id="flags">
             <a href="/language/de" alt="Deutsch" title="Deutsch">Deutsch</a>
             <a href="/language/en" alt="English" title="English">English</a>
