@@ -185,14 +185,10 @@ def mapsMain():
 
 	if 'language' not in session:
 		session['language'] = 'de'
-	
-
 		
-	contentObj = Content()
-	
+	contentObj = Content()	
 	templateData = {
-		'content' : contentObj.getAllText(language=session['language']),
-		
+		'content' : contentObj.getAllText(language=session['language'])
 	}
 
 	#check for user from survey
@@ -201,9 +197,10 @@ def mapsMain():
 		m = rg.search(request.referrer)
 		if m and m.group(1) == '/survey':
 			templateData['surveyGuest'] = True
-
+		else:
+			templateData['surveyGuest'] = False
 	else:
-		surveyGuest = False
+		templateData['surveyGuest'] = False
 
 	return render_template('/main/maps.html', **templateData);
 

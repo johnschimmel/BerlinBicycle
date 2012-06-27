@@ -14,14 +14,13 @@
 
 		<div id="text-block" >
 			<div class="copy">
-				<h1>
-					{% if surveyGuest %}
-					{{content.get('survey_thank_you')|safe}}
-					{% else %}
-					{{content.get('map_page_title')|safe}}
-					{% endif %}
-				</h1>
+			
+				{% if surveyGuest %}
+				<h1>{{content.get('survey_thank_you')|safe}}</h1>
 				<p>{{content.get('map_page_description')|safe}}</p>
+				{% else %}
+				<h1>{{content.get('title_dynamic_connections')}}</h1>
+				{% endif %}
 			</div>
 		</div>
 		<div class="select">
@@ -125,7 +124,12 @@
 
 		jQuery('select#map_selection').on('change', function(e){
 			displayQuery(jQuery(this).val());
+			
+		})
+		jQuery('select#map_selection option').on('click',function(){
+			console.log("clicked");
 		});
+
 
 	});
 
@@ -142,25 +146,28 @@
 
 
 	var currentOption = 0;
+	var tid;tid
 	var automaticPlay = function() {
-		var tid = setInterval(triggerFromSelect, 5000);
+		tid = setInterval(triggerFromSelect, 5000);
 	}
 	
 	function triggerFromSelect() {
 	    var opts = jQuery('select#map_selection option');
-	    
 	    jQuery(opts[currentOption]).attr('selected', 'selected').trigger('change');
-	    
 	    if (currentOption < jQuery('#map_selection option').length) {
 	        currentOption=currentOption+1;
 	    } else {
 	        currentOption = 0;
 	    }
 	}
+
 	function abortTimer() { // to be called when you want to stop the timer
 	  clearInterval(tid);
 	}
 
+	{% if not surveyGuest %}
+	automaticPlay();
+	{% endif %}
 
 </script>
 
