@@ -124,12 +124,16 @@
 
 		jQuery('select#map_selection').on('change', function(e){
 			displayQuery(jQuery(this).val());
+		
+			if (e.isTrigger) {
+				//continue as normal
+			} else { 
+				//select list was clicked manually, stop the automatic playback
+				abortTimer();
+			}
 			
 		})
-		jQuery('select#map_selection option').on('click',function(){
-			console.log("clicked");
-		});
-
+		
 
 	});
 
