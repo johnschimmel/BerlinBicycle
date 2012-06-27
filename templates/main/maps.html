@@ -95,6 +95,10 @@
 		  mapTypeControl: false
 		});
 
+		map_style = [ { stylers: [ { saturation: -1 }, { gamma: 1.52 } ] }, { featureType: "administrative", stylers: [ { saturation: -10 },{ gamma: 2.26 } ] }, { featureType: "water", elementType: "labels", stylers: [ { visibility: "off" } ] }, { featureType: "administrative.locality", stylers: [ { visibility: 'on' } ] }, { featureType: "road", stylers: [ { visibility: "simplified" }, { saturation: -20 }, { gamma: 5.22 } ] }, { featureType: "poi", elementType: "labels", stylers: [ { visibility: "on" } ] }, { featureType: "road.arterial", stylers: [ { visibility: 'on' } ] }, { featureType: "road.local", elementType: "labels", stylers: [ { visibility: 'on' } ] }, { featureType: "transit", stylers: [ { visibility: 'on' } ] }, { featureType: "road", elementType: "labels", stylers: [ { visibility: 'on' } ] },{ featureType: "poi", stylers: [ { saturation: -55 } ] } ];
+
+		map.setOptions({styles: map_style});
+
 		cartodb_gmapsv3 = new CartoDBLayer({
 		  map: map,
 		  user_name:'johnschimmel',
