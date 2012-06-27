@@ -12,13 +12,13 @@
 	
 	<div class="content-wrap" id="mapFrameContainer">
 		<div id="text-block" >
-			<h2>
+			<h1>
 				{% if surveyGuest %}
 				{{content.get('survey_thank_you')|safe}}
 				{% else %}
 				{{content.get('map_page_title')|safe}}
 				{% endif %}
-			</h2>
+			</h1>
 			<p>{{content.get('map_page_description')|safe}}</p>
 			<select id="map_selection"></select>
 		</div>
@@ -135,6 +135,26 @@
 		setTimeout(function(){map.setZoom(prevZoom);}, 1000);
 	}
 
+
+	var currentOption = 0;
+	var automaticPlay = function() {
+		var tid = setInterval(triggerFromSelect, 5000);
+	}
+	
+	function triggerFromSelect() {
+	    var opts = jQuery('select#map_selection option');
+	    
+	    jQuery(opts[currentOption]).attr('selected', 'selected').trigger('change');
+	    
+	    if (currentOption < jQuery('#map_selection option').length) {
+	        currentOption=currentOption+1;
+	    } else {
+	        currentOption = 0;
+	    }
+	}
+	function abortTimer() { // to be called when you want to stop the timer
+	  clearInterval(tid);
+	}
 
 
 </script>
