@@ -7,7 +7,24 @@
 
 	<div class="content-wrap">  
 	    <div id="text-block" class="box">
-	    	{{ content.get('page_about')|safe }}
+	    	{% if session['language']=='en'%}
+	    		<h1>About</h1>
+	<p>The Dynamic Connections Map is an interactive biking map for the city of Berlin.</p>
+	<p>While traditional mapping efforts show the here and now, the Dynamic Connections Map shows and assesses both the current Berlin biking network and its potential future.</p>
+	<p>The Dynamic Connections Map allows everyone in Berlin to rate/score different Berlin streets on how good and safe they are for cycling by answering 5 simple questions.</p>
+	<p>Everyone in Berlin will also be able to identify which streets should have future biking infrastructure, creating a crowdsourced map of the potential future biking network in Berlin.</p>
+	<p>Dynamic Connections Map is a project organized by BMW Guggenheim Lab Team member <a href="http://www.bmwguggenheimlab.org/what-is-the-lab/people/berlin-lab-team/rachel-smith">Rachel Smith</a> with <a href="http://www.base2john.com/">John Schimmel</a> and <a href="http://www.iamdavedawson.com">Dave Dawson</a>.</p>
+	<p><a target="_blank" rel="nofollow" href="http://www.bmwguggenheimlab.org/berlin-lab-city-projects/237">Berlin Lab City Projects</a>.</p>
+	    	{% else %}
+<h1>Über das Projekt</h2>
+	<p>Die Karte "Dynamische Verbindungen" ist eine interaktive Fahrradkarte der Stadt Berlin.</p>
+	<p>Während traditionelle Kartierungen den Ist-Zustand darstellen, zeigt und bewertet die Karte "Dynamische Verbindungen" sowohl das existierende Berliner Fahrradnetz als auch dessen mögliche Zukunft.</p>
+	<p>Die Karte "Dynamische Verbindungen" ermöglicht den Nutzern, die verschiedenen Berliner Straßen nach ihrer Qualität und Sicherheit für Fahrradfahrer zu bewerten, indem sie 5 einfache Fragen beantworten.</p>
+	<p>Darüber hinaus können alle Nutzer Straßen identifizieren, die in Zukunft eine Fahrrad-Infrastruktur bekommen sollten. Durch Crowdsourcing entsteht so auch die Karte eines möglichen, zukünftigen Fahrradnetzes für Berlin.</p>
+	<p>Das Projekt „Dynamische Verbindungen“ wird organisiert von <a href="http://www.bmwguggenheimlab.org/what-is-the-lab/people/berlin-lab-team/rachel-smith">Rachel Smith</a>, BMW Guggenheim Lab Team Mitglied, in Zusammenarbeit mit <a href="http://www.base2john.com/">John Schimmel</a> und <a href="http://www.iamdavedawson.com">Dave Dawson</a>.</p>
+	<p><a target="_blank" rel="nofollow" href="http://www.bmwguggenheimlab.org/berlin-lab-city-projects/237">http://www.bmwguggenheimlab.org/berlin-lab-city-projects/237</a>
+	    	{% endif %}
+	    	
 		</div><!-- /#text-block -->
 	</div><!-- /.content-wrap -->
 </div>
