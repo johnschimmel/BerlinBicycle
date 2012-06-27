@@ -11,7 +11,9 @@
 
 	
 	<div class="content-wrap" id="mapFrameContainer">
+
 		<div id="text-block" >
+			<div class="copy">
 			<h1>
 				{% if surveyGuest %}
 				{{content.get('survey_thank_you')|safe}}
@@ -20,9 +22,11 @@
 				{% endif %}
 			</h1>
 			<p>{{content.get('map_page_description')|safe}}</p>
+		</div>
+		<div class="select">
 			<select id="map_selection"></select>
 		</div>
-		<div id="map" style="width:100%;height:350px;"></div>
+		<div id="map" style="width:100%;height:500px;"></div>
 
 	</div>
 </div>
