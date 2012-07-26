@@ -94,7 +94,7 @@
 	jQuery(document).ready(function(){
 		map = new google.maps.Map(document.getElementById('map'), {
 		  center: new google.maps.LatLng(52.532408, 13.41152),
-		  zoom: 3,
+		  zoom: 10,
 		  mapTypeId: google.maps.MapTypeId.ROADMAP,
 		  mapTypeControl: false
 		});
@@ -114,7 +114,7 @@
 		  featureClick: function(ev, latlng, pos, data) {},
 		  featureOver: function(ev, latlng, pos, data) {},
 		  featureOut: function() {},
-		  auto_bound: true
+		  auto_bound: false
 		});
 
 		jQuery.each(cartoQueries, function(id, obj){
