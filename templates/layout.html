@@ -60,24 +60,31 @@
   <script src="{{ url_for('static', filename='js/source.js') }}"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}?v=0.5"></script>
 
-  <!--[if lte IE 8]>
-  <script>
-    jQuery('input[type="radio"] + label').hover(
-      function() {
-        jQuery(this).css({ 'border': '1px solid #ddd', 'background-color': '#415d96', 'color': '#eee' });
-      },
-      function() {
-        jQuery(this).css({ 'border': '1px solid #ddd', 'background-color': '#f8f9fa', 'color': '#777' });
-      }
-    );
+<!--[if lte IE 8]>
+<SCRIPT>
 
-    jQuery('input[type="radio"]:checked + label').click(function(){
-      jQuery(this).css('background-color','#2d4a85');
+
+    jQuery('input[type="radio"]').bind('change', function(e){
+  alert("reset all");
+    jQuery('input[type="radio"]').css({ 'border': '1px solid #ddd', 'background-color': '#f8f9fa', 'color': '#777' });
+    
+  id = jQuery(this).attr('id');
+  
+  jQuery('label[for="'+ jQuery(this).attr('id') +'"]').css('background-color','#2d4a85');
     });
 
 
-  </script>
-  <![endif]-->
+  </SCRIPT>
+  <style>
+  .landing#content LABEL:hover {
+  BORDER-BOTTOM: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #415d96; COLOR: #eee; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid
+}
+.interior#content  LABEL:hover {
+  BORDER-BOTTOM: #ddd 1px solid; BORDER-LEFT: #ddd 1px solid; BACKGROUND: #415d96; COLOR: #eee; BORDER-TOP: #ddd 1px solid; BORDER-RIGHT: #ddd 1px solid
+}
+
+  </style>
+<![endif]-->
 
 
   {% block scripts %}{% endblock %}
