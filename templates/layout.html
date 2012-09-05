@@ -70,15 +70,13 @@
         jQuery(this).css({ 'border': '1px solid #ddd', 'background-color': '#f8f9fa', 'color': '#777' });
       }
     );
+
+    jQuery('input[type="radio"]:checked + label')click(function(){
+      jQuery(this).css('background-color','#2d4a85');
+    });
+
+
   </script>
-
-  <style>
-    input[type="radio"] {
-      position: relative;
-    }
-    
-  </style>
-
   <![endif]-->
 
 
