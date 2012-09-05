@@ -60,6 +60,22 @@
   <script src="{{ url_for('static', filename='js/source.js') }}"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}?v=0.5"></script>
 
+  <!--[if lte IE 8]>
+  <script>
+    jQuery('input[type="radio"] + label').hover(
+      function() {
+        jQuery(this).css({ 'border': '1px solid #ddd', 'background': '#415d96', 'color': '#eee' });
+      }),
+      function() {
+        jQuery(this).css({ 'border': '1px solid #ddd', 'background': '#f8f9fa', 'color': '#eee' });
+      }
+    );
+
+    jQuery('input[type="radio"]:checked + label').css('background-color','#2d4a85');
+
+
+  </script>    /*stylesheet, script, or whatever in there. */
+  <![endif]-->
 
 
   {% block scripts %}{% endblock %}

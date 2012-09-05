@@ -364,7 +364,7 @@ def secret():
 @app.route("/theregisterpage", methods=["GET","POST"])
 def register():
 	registerForm = RegisterForm(csrf_enabled=True)
-
+    
 	if request.method == 'POST' and registerForm.validate():
 		email = request.form['email']
 		password_hash = flask_bcrypt.generate_password_hash(request.form['password'])
@@ -378,14 +378,14 @@ def register():
 				return redirect(request.args.get("next") or url_for("index"))
 			else:
 				flash("unable to log you in")
-
+            
 		except:
 			flash("unable to register with that email address")
 			app.logger.error("Error on registration - possible duplicate emails")
-			
+	
+    # prepare registration form
 	registerForm = RegisterForm(csrf_enabled=True)
 	templateData = {
-
 		'form' : registerForm
 	}
 
